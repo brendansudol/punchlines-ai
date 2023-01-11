@@ -40,9 +40,10 @@ export default function Home() {
       <main className="mx-auto p-8 max-w-screen-sm min-h-screen">
         <h1 className="mb-1 text-3xl font-bold">🤖📝😂</h1>
         <p className="text-gray-500">
-          <strong className="text-lg text-black">AI LOL</strong> is ...This year, our new summer
-          collection will shelter you from the harsh elements of a world that doesn't care if you
-          live or die.
+          <strong className="text-lg text-black">AI LOL</strong> is ipsum dolor sit amet,
+          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+          ex ea commodo consequat.
         </p>
 
         <div className="mt-8 stretch flex flex-row gap-3 lg:max-w-3xl">
@@ -81,9 +82,9 @@ export default function Home() {
         <section className="mt-16">
           <h2 className="mb-2 font-bold tracking-tight">How does it work?</h2>
           <p className="text-gray-500">
-            <strong className="text-black">AI LOL</strong> is ...This year, our new summer
-            collection will shelter you from the harsh elements of a world that doesn't care if you
-            live or die.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
         </section>
 
