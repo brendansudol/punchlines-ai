@@ -48,18 +48,18 @@ export default function Home() {
 
         <div className="mt-8 stretch flex flex-row gap-3 lg:max-w-3xl">
           <div className="relative flex h-full flex-1 md:flex-col">
-            <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white dark:border-gray-900/50 dark:text-white dark:bg-gray-700 rounded-md shadow-[0_0_10px_rgba(0,0,0,0.10)]">
+            <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-md shadow-[0_0_10px_rgba(0,0,0,0.10)]">
               <TextareaAutosize
                 maxRows={5}
                 placeholder=""
-                className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0 dark:bg-transparent"
+                className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
                 style={{ overflowY: "hidden" }}
                 autoFocus={true}
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
               />
               <button
-                className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 dark:hover:text-gray-400 dark:hover:bg-gray-900 disabled:hover:bg-transparent dark:disabled:hover:bg-transparent"
+                className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 disabled:hover:bg-transparent"
                 onClick={handleSubmit}
               >
                 <ArrowRightCircleIcon className="h-5 w-5" />
