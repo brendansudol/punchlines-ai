@@ -1,6 +1,6 @@
 import Head from "next/head"
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import TextareaAutosize from "react-textarea-autosize"
 
 const examples = ["foo", "bar", "baz", "waldo", "fred", "thud"]
@@ -9,6 +9,12 @@ export default function Home() {
   const [prompt, setPrompt] = useState("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [results, setResults] = useState<any>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  const handleExampleClick = (text: string) => {
+    setPrompt(text.repeat(20))
+    buttonRef.current?.focus()
+  }
 
   const handleSubmit = async () => {
     setIsLoading(true)
@@ -48,7 +54,7 @@ export default function Home() {
 
         <div className="mt-8 stretch flex flex-row gap-3 lg:max-w-3xl">
           <div className="relative flex h-full flex-1 md:flex-col">
-            <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-md shadow-[0_0_10px_rgba(0,0,0,0.10)]">
+            <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-lg shadow-md">
               <TextareaAutosize
                 maxRows={5}
                 placeholder=""
@@ -60,6 +66,7 @@ export default function Home() {
               />
               <button
                 className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 disabled:hover:bg-transparent"
+                ref={buttonRef}
                 onClick={handleSubmit}
               >
                 <ArrowRightCircleIcon className="h-5 w-5" />
@@ -69,11 +76,17 @@ export default function Home() {
         </div>
 
         <section className="mt-16">
-          <h2 className="mb-2 font-bold tracking-tight">Examples</h2>
+          <h2 className="mb-2 font-semibold tracking-tight">Example opening lines</h2>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {examples.map((ex, i) => (
-              <div key={i} className="rounded-lg p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer">
+              <div
+                key={i}
+                className="rounded-lg p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                onClick={() => handleExampleClick(ex)}
+              >
+                <span className="select-none">“</span>
                 {ex}
+                <span className="select-none">”</span>
               </div>
             ))}
           </div>
