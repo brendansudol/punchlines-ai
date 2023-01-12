@@ -1,6 +1,7 @@
 import Head from "next/head"
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
 import { useRef, useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 import TextareaAutosize from "react-textarea-autosize"
 
 const examples = ["foo", "bar", "baz", "waldo", "fred", "thud"]
@@ -14,6 +15,7 @@ export default function Home() {
   const handleExampleClick = (text: string) => {
     setPrompt(text.repeat(20))
     buttonRef.current?.focus()
+    toast("Boom.", { icon: "🤖" })
   }
 
   const handleSubmit = async () => {
@@ -139,6 +141,8 @@ export default function Home() {
         </svg> */}
 
         {results && <pre>{JSON.stringify(results, undefined, 2)}</pre>}
+
+        <Toaster position="top-right" />
       </main>
     </>
   )
