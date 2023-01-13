@@ -9,9 +9,9 @@
 }
 
 html {
-  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-  'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-  'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
+    "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
+    "Courier New", monospace;
 }
 
 html,
@@ -20,7 +20,21 @@ body {
   overflow-x: hidden;
 }
 
+body {
+  background-color: #fefefe;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.animate-blink {
+  animation: blink 1s steps(3, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
 }

@@ -1,12 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { Configuration, OpenAIApi } from "openai"
-
-type Data = any
+import { SuggestResponse } from "../../types"
 
 const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY })
 const openai = new OpenAIApi(configuration)
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<SuggestResponse>) {
   const { prompt } = req.body
 
   if (prompt == null || prompt.length < 5) {
@@ -27,13 +26,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
 
     return res.status(200).json({
-      completion: completion.data.choices,
+      status: "success",
+      results: completion.data.choices.map((choice) => choice.text).filter(isNonNullable),
     })
   } catch (err: any) {
     console.error(err)
     return res.status(500).json({
       status: "error",
-      error: err.message ?? err.toString() ?? "N/A",
+      reason: err.message ?? err.toString() ?? "N/A",
     })
   }
+}
+
+function isNonNullable<T>(value: T | undefined | null): value is T {
+  return value != null
 }
