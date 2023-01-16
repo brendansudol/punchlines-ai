@@ -2,17 +2,20 @@
 
 TODO:
 
-- use proper model
-- rate limiting
-- actual examples
 - update copy & links everywhere
 - readme
-- skeleton / loading state
-- error state
-- prompt & completion formatting
+- share / tweet ability
+
+CURRENTLY:
 
 DONE:
 
 - footer
 - typing animation
 - use async types
+- skeleton / loading state
+- error state
+- rate limiting
+- actual examples
+- use proper model
+- prompt & completion formatting
