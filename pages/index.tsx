@@ -1,5 +1,6 @@
 import type { InferGetServerSidePropsType } from "next"
 import Head from "next/head"
+import Image from "next/image"
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
 import shuffle from "lodash.shuffle"
 import React, { useRef, useState } from "react"
@@ -74,7 +75,7 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>AI LOL</title>
+        <title>punchlines.ai</title>
         <meta
           name="description"
           content="Generate jokes with an AI model trained on 10,000 late night comedy monologue jokes."
@@ -85,10 +86,15 @@ export default function Home({
 
       <div className="mx-auto p-4 lg:p-6 max-w-screen-sm min-h-screen">
         <div className="mb-8">
-          <h1 className="mb-1 text-3xl font-bold">🤖📝😂</h1>
+          <div className="mb-2 flex items-center gap-2">
+            <Image src="/logo.svg" alt="Vercel Logo" width={40} height={37} priority={true} />
+            <a href="/" className="text-2xl leading-none font-bold tracking-tight hover:underline">
+              punchlines<span className="text-cyan-500">.</span>ai
+            </a>
+          </div>
           <p className="text-gray-500">
-            <strong className="text-lg text-black">AI LOL</strong> is ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+            Meet your new AI comedy writing partner. You provide a set-up to a joke, and it
+            generates the zingers.
           </p>
         </div>
 
@@ -98,7 +104,7 @@ export default function Home({
               <TextareaAutosize
                 rows={1}
                 maxRows={5}
-                placeholder=""
+                placeholder="Add an opening line to a joke..."
                 className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
                 style={{ overflowY: "hidden" }}
                 value={prompt}
@@ -119,7 +125,9 @@ export default function Home({
         {isNotStarted(results) && (
           <div className="flex flex-col gap-12 lg:gap-16">
             <section>
-              <h2 className="mb-2 font-semibold tracking-tight">Example opening lines:</h2>
+              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
+                Example opening lines:
+              </h2>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
                 {examplePrompts.map((ex, i) => (
                   <div
@@ -135,11 +143,11 @@ export default function Home({
               </div>
             </section>
             <section>
-              <h2 className="mb-2 font-bold tracking-tight">How does it work?</h2>
+              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">How does it work?</h2>
               <p className="text-gray-500">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                <strong>punchlines.ai</strong> is an AI joke generation tool built on top of
+                OpenAI’s GPT-3 language model. It was fine-tuned on ten thousand late night comedy
+                monologue jokes. And boy are its arms tired!
               </p>
             </section>
           </div>
@@ -160,15 +168,16 @@ export default function Home({
 
         {isLoaded(results) && results.value.status === "error" && (
           <div className="p-5 lg:p-7 mb-4 text-red-700 bg-red-100 rounded-lg" role="alert">
-            <span className="font-bold">Sorry!</span> There was a problem generating your zingers.
-            Please try again shortly.{" "}
+            <span className="font-bold">Sorry!</span> There was a problem generating your joke
+            punchlines. Please try again shortly.
+            <br />
             <span className="bg-red-200">(reason={results.value.reason || "unknown"})</span>
           </div>
         )}
 
         {isLoaded(results) && results.value.status === "success" && (
           <div className="mt-12 lg:mt-16">
-            <h2 className="mb-2 font-bold tracking-tight">Punchline options:</h2>
+            <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">Punchline options:</h2>
             <Typist
               cursor={showCursor ? <span className="animate-blink">▋</span> : undefined}
               typingDelay={40}
@@ -176,8 +185,11 @@ export default function Home({
             >
               <div className="flex flex-col gap-4">
                 {results.value.results.map((text, i) => (
-                  <div key={i} className="whitespace-pre-line">
-                    {i + 1}. {text.trim()}
+                  <div
+                    key={i}
+                    className="p-4 border border-gray-200 rounded-lg whitespace-pre-line"
+                  >
+                    {text}
                     <Typist.Delay ms={1_000} />
                   </div>
                 ))}
