@@ -1,6 +1,7 @@
 import type { InferGetServerSidePropsType } from "next"
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
 import shuffle from "lodash.shuffle"
 import React, { useRef, useState } from "react"
@@ -88,9 +89,12 @@ export default function Home({
         <div className="mb-8">
           <div className="mb-2 flex items-center gap-2">
             <Image src="/logo.svg" alt="Vercel Logo" width={40} height={37} priority={true} />
-            <a href="/" className="text-2xl leading-none font-bold tracking-tight hover:underline">
+            <Link
+              href="/"
+              className="text-2xl leading-none font-bold tracking-tight hover:underline"
+            >
               punchlines<span className="text-cyan-500">.</span>ai
-            </a>
+            </Link>
           </div>
           <p className="text-gray-500">
             Meet your new AI comedy writing partner. You provide a set-up to a joke, and it
