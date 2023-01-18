@@ -2,10 +2,9 @@ import type { InferGetServerSidePropsType } from "next"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowPathIcon } from "@heroicons/react/20/solid"
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
-import shuffle from "lodash.shuffle"
 import React, { useRef, useState } from "react"
-import toast, { Toaster } from "react-hot-toast"
 import TextareaAutosize from "react-textarea-autosize"
 import Typist from "react-typist-component"
 import {
@@ -18,27 +17,14 @@ import {
   isNotStarted,
 } from "../utils/async"
 import { SuggestResponse } from "../types"
-
-const EXAMPLES = [
-  "A hacker has published Kim Kardashian's financial information online.",
-  "A gambler won 14 million dollars on last night’s World Series game.",
-  "The founder of IKEA has stepped down.",
-  "A new high school in Chicago will be named after President Obama.",
-  "The other day in Nevada, a woman ran into a Subway restaurant and gave birth.",
-  "According to a new study, talking after having sex just as important as sex.",
-  "Facebook announced major changes to its privacy settings.",
-  "An exact replica of the Titanic is scheduled to set sail in 2018.",
-  "Legendary astronaut Buzz Aldrin is now single.",
-  "Safety experts now say more and more car crashes are being caused by GPS devices.",
-  "Netflix is testing a new feature that will allow you to hide what you’ve been watching.",
-  "A new survey shows two-thirds of American adults pee in the ocean.",
-]
+import { getRandomExamples } from "../utils/data"
 
 export default function Home({
-  examplePrompts,
+  initialExamples,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [prompt, setPrompt] = useState("")
   const [showCursor, setShowCursor] = useState(false)
+  const [examples, setExamples] = useState(initialExamples)
   const [results, setResults] = useState<AsyncValue<SuggestResponse>>(asyncNotStarted())
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -55,6 +41,10 @@ export default function Home({
   const handleExampleClick = (text: string) => {
     setPrompt(text)
     buttonRef.current?.focus()
+  }
+
+  const handleRefreshExamples = () => {
+    setExamples(getRandomExamples())
   }
 
   const handleSubmit = async () => {
@@ -97,8 +87,8 @@ export default function Home({
             </Link>
           </div>
           <p>
-            Meet your new AI comedy writing partner. You provide a joke set-up, and it generates the
-            zingers.
+            Meet your new comedy writing partner. You provide a joke set-up, and the AI generates
+            the zingers.
           </p>
         </div>
 
@@ -127,13 +117,21 @@ export default function Home({
         </div>
 
         {isNotStarted(results) && (
-          <div className="flex flex-col gap-12 lg:gap-16">
+          <div className="flex flex-col gap-12 lg:gap-14">
             <section>
-              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
-                Example opening lines:
-              </h2>
+              <div className="flex items-baseline justify-between">
+                <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
+                  Example opening lines:
+                </h2>
+                <button
+                  className="flex items-center p-1 text-xs text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
+                  onClick={handleRefreshExamples}
+                >
+                  <ArrowPathIcon className="w-4 h-4" />
+                </button>
+              </div>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
-                {examplePrompts.map((ex, i) => (
+                {examples.map((ex, i) => (
                   <div
                     key={i}
                     className="p-3 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 cursor-pointer"
@@ -158,10 +156,10 @@ export default function Home({
         )}
 
         {isLoading(results) && (
-          <div className="mt-12 lg:mt-16 animate-pulse">
-            <div className="h-5 bg-gray-200 rounded-full w-48 lg:w-64 mb-4"></div>
+          <div className="animate-pulse">
+            <div className="h-5 bg-gray-200 rounded-full w-48 lg:w-64 mb-5"></div>
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="mb-4 p-4 border border-2 border-gray-200 rounded-lg">
+              <div key={i} className="mb-5 p-4 border border-2 border-gray-200 rounded-lg">
                 <div className="h-3 bg-gray-200 rounded-full w-5/6 mb-2.5"></div>
                 <div className="h-3 bg-gray-200 rounded-full w-6/6 mb-2.5"></div>
                 <div className="h-3 bg-gray-200 rounded-full w-4/6"></div>
@@ -210,16 +208,17 @@ export default function Home({
             Made by <strong>@brensudol</strong>
           </a>
         </footer>
-
-        <Toaster position="top-right" />
       </div>
     </>
   )
 }
 
 export async function getServerSideProps() {
-  const examplePrompts = shuffle(EXAMPLES).slice(0, 4)
-  return { props: { examplePrompts } }
+  return {
+    props: {
+      initialExamples: getRandomExamples(),
+    },
+  }
 }
 
 function getRequestInit(prompt: string) {

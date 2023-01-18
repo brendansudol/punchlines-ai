@@ -1,12 +1,10 @@
 TODO:
 
-- update copy & links everywhere
-- readme
-- repo rename
-
 CURRENTLY:
 
 - update copy & links everywhere
+- repo rename
+- clear results
 
 DONE:
 
@@ -20,7 +18,10 @@ DONE:
 - use proper model
 - prompt & completion formatting
 - add analytics
+- refresh openers list
+- readme
 
 LATER:
 
 - share / tweet ability
+- incorporate temperature
