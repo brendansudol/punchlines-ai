@@ -96,9 +96,9 @@ export default function Home({
               punchlines<span className="text-cyan-500">.</span>ai
             </Link>
           </div>
-          <p className="text-gray-500">
-            Meet your new AI comedy writing partner. You provide a set-up to a joke, and it
-            generates the zingers.
+          <p>
+            Meet your new AI comedy writing partner. You provide a joke set-up, and it generates the
+            zingers.
           </p>
         </div>
 
@@ -108,7 +108,7 @@ export default function Home({
               <TextareaAutosize
                 rows={1}
                 maxRows={5}
-                placeholder="Add an opening line to a joke..."
+                placeholder="Add opening line..."
                 className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
                 style={{ overflowY: "hidden" }}
                 value={prompt}
@@ -148,7 +148,7 @@ export default function Home({
             </section>
             <section>
               <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">How does it work?</h2>
-              <p className="text-gray-500">
+              <p>
                 <strong>punchlines.ai</strong> is an AI joke generation tool built on top of
                 OpenAI’s GPT-3 language model. It was fine-tuned on ten thousand late night comedy
                 monologue jokes. And boy are its arms tired!
@@ -159,12 +159,12 @@ export default function Home({
 
         {isLoading(results) && (
           <div className="mt-12 lg:mt-16 animate-pulse">
-            <div className="h-5 bg-gray-200 rounded-full w-48 lg:w-64 mb-6"></div>
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="mb-8">
+            <div className="h-5 bg-gray-200 rounded-full w-48 lg:w-64 mb-4"></div>
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="mb-4 p-4 border border-2 border-gray-200 rounded-lg">
                 <div className="h-3 bg-gray-200 rounded-full w-5/6 mb-2.5"></div>
                 <div className="h-3 bg-gray-200 rounded-full w-6/6 mb-2.5"></div>
-                <div className="h-3 bg-gray-200 rounded-full w-4/6 mb-2.5"></div>
+                <div className="h-3 bg-gray-200 rounded-full w-4/6"></div>
               </div>
             ))}
           </div>
@@ -203,10 +203,10 @@ export default function Home({
         )}
 
         <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center gap-8 text-xs">
-          <a href="#" className="hover:underline">
+          <a href="https://github.com/brendansudol/ai-lol" className="hover:underline">
             Code on GitHub
           </a>
-          <a href="#" className="hover:underline">
+          <a href="https://twitter.com/brensudol" className="hover:underline">
             Made by <strong>@brensudol</strong>
           </a>
         </footer>
