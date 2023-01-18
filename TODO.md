@@ -1,10 +1,10 @@
 TODO:
 
+- share / tweet ability
+
 CURRENTLY:
 
-- update copy & links everywhere
-- repo rename
-- clear results
+???
 
 DONE:
 
@@ -20,8 +20,10 @@ DONE:
 - add analytics
 - refresh openers list
 - readme
+- repo rename
+- update copy & links everywhere
+- clear results
 
-LATER:
+MAYBE:
 
-- share / tweet ability
-- incorporate temperature
+- changeable temperature param?

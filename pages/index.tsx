@@ -63,6 +63,11 @@ export default function Home({
     setShowCursor(false)
   }
 
+  const handleClearResults = () => {
+    setPrompt("")
+    setResults(asyncNotStarted())
+  }
+
   return (
     <>
       <Head>
@@ -87,12 +92,12 @@ export default function Home({
             </Link>
           </div>
           <p>
-            Meet your new comedy writing partner. You provide a joke set-up, and the AI generates
-            the zingers.
+            Meet your new AI comedy writing partner. You provide a joke set-up, and it generates the
+            zingers.
           </p>
         </div>
 
-        <div className="mb-12 stretch flex flex-row gap-3 lg:max-w-3xl">
+        <div className="mb-12 lg:mb-14 stretch flex flex-row gap-3 lg:max-w-3xl">
           <div className="relative flex h-full flex-1 md:flex-col">
             <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-lg shadow-md">
               <TextareaAutosize
@@ -123,12 +128,9 @@ export default function Home({
                 <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
                   Example opening lines:
                 </h2>
-                <button
-                  className="flex items-center p-1 text-xs text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
-                  onClick={handleRefreshExamples}
-                >
+                <Button onClick={handleRefreshExamples}>
                   <ArrowPathIcon className="w-4 h-4" />
-                </button>
+                </Button>
               </div>
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
                 {examples.map((ex, i) => (
@@ -157,7 +159,7 @@ export default function Home({
 
         {isLoading(results) && (
           <div className="animate-pulse">
-            <div className="h-5 bg-gray-200 rounded-full w-48 lg:w-64 mb-5"></div>
+            <div className="mb-3 h-5 bg-gray-200 rounded-full w-48 lg:w-64"></div>
             {[...Array(3)].map((_, i) => (
               <div key={i} className="mb-5 p-4 border border-2 border-gray-200 rounded-lg">
                 <div className="h-3 bg-gray-200 rounded-full w-5/6 mb-2.5"></div>
@@ -178,7 +180,7 @@ export default function Home({
         )}
 
         {isLoaded(results) && results.value.status === "success" && (
-          <div className="mt-12 lg:mt-16">
+          <div>
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">Punchline options:</h2>
             <Typist
               cursor={showCursor ? <span className="animate-blink">▋</span> : undefined}
@@ -197,19 +199,36 @@ export default function Home({
                 ))}
               </div>
             </Typist>
+            {!showCursor && (
+              <div className="mt-4 flex gap-2">
+                <Button onClick={handleClearResults}>Clear results</Button>
+                <Button onClick={handleSubmit}>Submit again</Button>
+              </div>
+            )}
           </div>
         )}
 
         <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center gap-8 text-xs">
-          <a href="https://github.com/brendansudol/ai-lol" className="hover:underline">
-            Code on GitHub
-          </a>
           <a href="https://twitter.com/brensudol" className="hover:underline">
             Made by <strong>@brensudol</strong>
+          </a>
+          <a href="https://github.com/brendansudol/punchlines-ai" className="hover:underline">
+            Code on GitHub
           </a>
         </footer>
       </div>
     </>
+  )
+}
+
+function Button({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+  return (
+    <button
+      className="flex items-center p-1 text-xs font-bold text-gray-700 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
+      onClick={onClick}
+    >
+      {children}
+    </button>
   )
 }
 
