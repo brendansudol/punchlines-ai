@@ -1,10 +1,11 @@
+import classNames from "classnames"
 import type { InferGetServerSidePropsType } from "next"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowPathIcon } from "@heroicons/react/20/solid"
 import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import TextareaAutosize from "react-textarea-autosize"
 import Typist from "react-typist-component"
 import {
@@ -27,6 +28,8 @@ export default function Home({
   const [examples, setExamples] = useState(initialExamples)
   const [results, setResults] = useState<AsyncValue<SuggestResponse>>(asyncNotStarted())
   const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => setExamples(initialExamples), [initialExamples])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -112,6 +115,7 @@ export default function Home({
               />
               <button
                 className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 disabled:hover:bg-transparent"
+                disabled={prompt.length === 0}
                 ref={buttonRef}
                 onClick={handleSubmit}
               >
@@ -128,7 +132,7 @@ export default function Home({
                 <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
                   Example opening lines:
                 </h2>
-                <Button onClick={handleRefreshExamples}>
+                <Button isSmall={true} onClick={handleRefreshExamples}>
                   <ArrowPathIcon className="w-4 h-4" />
                 </Button>
               </div>
@@ -150,7 +154,7 @@ export default function Home({
               <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">How does it work?</h2>
               <p>
                 <strong>punchlines.ai</strong> is an AI joke generation tool built on top of
-                OpenAI’s GPT-3 language model. It was fine-tuned on ten thousand late night comedy
+                OpenAI’s GPT-3 language models. It was fine-tuned on ten thousand late night comedy
                 monologue jokes. And boy are its arms tired!
               </p>
             </section>
@@ -188,13 +192,13 @@ export default function Home({
               onTypingDone={handleTypingDone}
             >
               <div className="flex flex-col gap-4">
-                {results.value.results.map((text, i) => (
+                {results.value.results.map((text, i, arr) => (
                   <div
                     key={i}
                     className="p-4 border border-gray-200 rounded-lg whitespace-pre-line"
                   >
                     {text}
-                    <Typist.Delay ms={1_000} />
+                    {i < arr.length - 1 && <Typist.Delay ms={1_000} />}
                   </div>
                 ))}
               </div>
@@ -221,10 +225,21 @@ export default function Home({
   )
 }
 
-function Button({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+function Button({
+  children,
+  isSmall = false,
+  onClick,
+}: {
+  children: React.ReactNode
+  isSmall?: boolean
+  onClick: () => void
+}) {
   return (
     <button
-      className="flex items-center p-1 text-xs font-bold text-gray-700 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-gray-300"
+      className={classNames(
+        "flex items-center text-xs font-bold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:border-gray-300 focus:ring-2 focus:ring-gray-300",
+        isSmall ? "p-1" : "py-1 px-2"
+      )}
       onClick={onClick}
     >
       {children}

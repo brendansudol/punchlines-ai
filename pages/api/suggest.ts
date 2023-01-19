@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       n: RESPONSE_COUNT,
       prompt: formatPrompt(prompt),
       stop: [" END"],
-      temperature: 0.5,
+      temperature: 0.75,
     })
 
     return res.status(200).json({

@@ -1,10 +1,7 @@
 TODO:
 
 - share / tweet ability
-
-CURRENTLY:
-
-???
+- clean / tweak the prompt
 
 DONE:
 
