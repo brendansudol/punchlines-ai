@@ -1,7 +1,6 @@
 TODO:
 
-- share joke on twitter
-- clean / tweak the prompt
+- ...
 
 DONE:
 
@@ -21,7 +20,9 @@ DONE:
 - update copy & links everywhere
 - clear results
 - copy joke text
+- share joke on twitter
 
 MAYBE:
 
 - changeable temperature param?
+- clean / tweak the prompt?

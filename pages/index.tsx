@@ -72,8 +72,7 @@ export default function Home({
     setResults(asyncNotStarted())
   }
 
-  const handleCopy = (prompt: string, punchline: string) => () => {
-    const joke = `${prompt} ${punchline}`.trim()
+  const handleCopy = (joke: string) => () => {
     navigator.clipboard.writeText(joke)
   }
 
@@ -83,7 +82,7 @@ export default function Home({
         <title>punchlines.ai</title>
         <meta
           name="description"
-          content="Generate jokes with an AI model trained on 10,000 late night comedy monologue jokes."
+          content="Generate jokes with an AI model trained on 10,000 late night comedy monologue quips."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -198,36 +197,47 @@ export default function Home({
               onTypingDone={handleTypingDone}
             >
               <div className="flex flex-col gap-4">
-                {results.value.results.map((punchline, i, arr) => (
-                  <div key={i} className="relative p-4 border border-gray-200 rounded-lg">
-                    <div className="whitespace-pre-line pr-4">
-                      {i + 1}. {punchline}
-                      {i < arr.length - 1 && <Typist.Delay ms={1_000} />}
-                    </div>
-                    <Typist.Paste>
-                      <div className="more-menu-container absolute top-1 right-1">
-                        <Popover className="relative inline-block">
-                          <Popover.Button className="flex p-0.5 text-gray-500 rounded-md hover:bg-gray-100">
-                            <EllipsisHorizontalIcon className="w-5 h-5" />
-                          </Popover.Button>
-                          <Popover.Panel className="absolute right-0 z-10 mt-1 w-40 bg-white rounded-md drop-shadow-md border-1 border-gray-500 ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
-                            <div className="grid grid-cols-1 divide-y divide-gray-100 text-xs">
-                              <Popover.Button
-                                className="px-4 py-2 w-full text-left hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                                onClick={handleCopy(
-                                  (results.value as SuggestResponse.Success)?.prompt ?? "",
-                                  punchline
-                                )}
-                              >
-                                Copy joke text
-                              </Popover.Button>
-                            </div>
-                          </Popover.Panel>
-                        </Popover>
+                {results.value.results.map((punchline, i, arr) => {
+                  const prompt = (results.value as SuggestResponse.Success)?.prompt ?? ""
+                  const fullJoke = `${prompt} ${punchline}`.trim()
+
+                  return (
+                    <div key={i} className="relative p-4 border border-gray-200 rounded-lg">
+                      <div className="whitespace-pre-line pr-4">
+                        {i + 1}. {punchline}
+                        {i < arr.length - 1 && <Typist.Delay ms={1_000} />}
                       </div>
-                    </Typist.Paste>
-                  </div>
-                ))}
+                      <Typist.Paste>
+                        <div className="more-menu-container absolute top-1 right-1">
+                          <Popover className="relative inline-block">
+                            <Popover.Button className="flex p-0.5 text-gray-500 rounded-md hover:bg-gray-100">
+                              <EllipsisHorizontalIcon className="w-5 h-5" />
+                            </Popover.Button>
+                            <Popover.Panel className="absolute right-0 z-10 mt-1 w-40 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
+                              <div className="grid grid-cols-1 divide-y divide-gray-100 text-xs">
+                                <Popover.Button
+                                  className="px-4 py-2 w-full text-left hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
+                                  onClick={handleCopy(fullJoke)}
+                                >
+                                  Copy joke text
+                                </Popover.Button>
+                                <Popover.Button
+                                  className="px-4 py-2 w-full text-left hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
+                                  as="a"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={makeTweetUrl(fullJoke)}
+                                >
+                                  Share on Twitter
+                                </Popover.Button>
+                              </div>
+                            </Popover.Panel>
+                          </Popover>
+                        </div>
+                      </Typist.Paste>
+                    </div>
+                  )
+                })}
               </div>
             </Typist>
             {!showCursor && (
@@ -288,4 +298,10 @@ function getRequestInit(prompt: string) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt }),
   }
+}
+
+function makeTweetUrl(joke: string) {
+  const url = window.location.origin
+  const params = new URLSearchParams({ text: joke, url }).toString()
+  return `https://twitter.com/intent/tweet?${params}`
 }
