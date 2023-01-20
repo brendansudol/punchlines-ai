@@ -3,8 +3,9 @@ import type { InferGetServerSidePropsType } from "next"
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
+import { Popover } from "@headlessui/react"
 import { ArrowPathIcon } from "@heroicons/react/20/solid"
-import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
+import { ArrowRightCircleIcon, EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
 import React, { useEffect, useRef, useState } from "react"
 import TextareaAutosize from "react-textarea-autosize"
 import Typist from "react-typist-component"
@@ -69,6 +70,11 @@ export default function Home({
   const handleClearResults = () => {
     setPrompt("")
     setResults(asyncNotStarted())
+  }
+
+  const handleCopy = (prompt: string, punchline: string) => () => {
+    const joke = `${prompt} ${punchline}`.trim()
+    navigator.clipboard.writeText(joke)
   }
 
   return (
@@ -187,18 +193,39 @@ export default function Home({
           <div>
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">Punchline options:</h2>
             <Typist
-              cursor={showCursor ? <span className="animate-blink">▋</span> : undefined}
+              cursor={showCursor ? <span className="cursor animate-blink">▋</span> : undefined}
               typingDelay={40}
               onTypingDone={handleTypingDone}
             >
               <div className="flex flex-col gap-4">
-                {results.value.results.map((text, i, arr) => (
-                  <div
-                    key={i}
-                    className="p-4 border border-gray-200 rounded-lg whitespace-pre-line"
-                  >
-                    {text}
-                    {i < arr.length - 1 && <Typist.Delay ms={1_000} />}
+                {results.value.results.map((punchline, i, arr) => (
+                  <div key={i} className="relative p-4 border border-gray-200 rounded-lg">
+                    <div className="whitespace-pre-line pr-4">
+                      {i + 1}. {punchline}
+                      {i < arr.length - 1 && <Typist.Delay ms={1_000} />}
+                    </div>
+                    <Typist.Paste>
+                      <div className="more-menu-container absolute top-1 right-1">
+                        <Popover className="relative inline-block">
+                          <Popover.Button className="flex p-0.5 text-gray-500 rounded-md hover:bg-gray-100">
+                            <EllipsisHorizontalIcon className="w-5 h-5" />
+                          </Popover.Button>
+                          <Popover.Panel className="absolute right-0 z-10 mt-1 w-40 bg-white rounded-md drop-shadow-md border-1 border-gray-500 ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden">
+                            <div className="grid grid-cols-1 divide-y divide-gray-100 text-xs">
+                              <Popover.Button
+                                className="px-4 py-2 w-full text-left hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
+                                onClick={handleCopy(
+                                  (results.value as SuggestResponse.Success)?.prompt ?? "",
+                                  punchline
+                                )}
+                              >
+                                Copy joke text
+                              </Popover.Button>
+                            </div>
+                          </Popover.Panel>
+                        </Popover>
+                      </div>
+                    </Typist.Paste>
                   </div>
                 ))}
               </div>
@@ -232,12 +259,12 @@ function Button({
 }: {
   children: React.ReactNode
   isSmall?: boolean
-  onClick: () => void
+  onClick?: () => void
 }) {
   return (
     <button
       className={classNames(
-        "flex items-center text-xs font-bold text-gray-700 bg-gray-100 border border-gray-200 rounded-lg hover:border-gray-300 focus:ring-2 focus:ring-gray-300",
+        "flex items-center text-xs font-bold text-gray-700 bg-gray-50 border border-gray-200 rounded-lg hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-300",
         isSmall ? "p-1" : "py-1 px-2"
       )}
       onClick={onClick}

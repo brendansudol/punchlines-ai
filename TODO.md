@@ -1,6 +1,6 @@
 TODO:
 
-- share / tweet ability
+- share joke on twitter
 - clean / tweak the prompt
 
 DONE:
@@ -20,6 +20,7 @@ DONE:
 - repo rename
 - update copy & links everywhere
 - clear results
+- copy joke text
 
 MAYBE:
 

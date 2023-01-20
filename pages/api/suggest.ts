@@ -36,13 +36,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       n: RESPONSE_COUNT,
       prompt: formatPrompt(prompt),
       stop: [" END"],
-      temperature: 0.75,
+      temperature: 0.6,
     })
 
-    return res.status(200).json({
-      status: "success",
-      results: completion.data.choices.map(({ text }) => text?.trim()).filter(isNonNullable),
-    })
+    const results = completion.data.choices.map(({ text }) => text?.trim()).filter(isNonNullable)
+    return res.status(200).json({ status: "success", prompt, results })
   } catch (err: any) {
     console.log("Error when fetching suggestions", err)
     return res.status(500).json({ status: "error", reason: "unknown" })
