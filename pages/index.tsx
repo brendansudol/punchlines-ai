@@ -30,6 +30,7 @@ export default function Home({
   const [results, setResults] = useState<AsyncValue<SuggestResponse>>(asyncNotStarted())
   const buttonRef = useRef<HTMLButtonElement>(null)
 
+  // if user clicks on header link
   useEffect(() => setExamples(initialExamples), [initialExamples])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -82,7 +83,7 @@ export default function Home({
         <title>punchlines.ai</title>
         <meta
           name="description"
-          content="Generate jokes with an AI model trained on 10,000 late night comedy monologue quips."
+          content="punchlines.ai is an AI joke generation tool. It was built using GPT language models and fine-tuned with over ten thousand late night comedy monologue jokes."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

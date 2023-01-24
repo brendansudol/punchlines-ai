@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       n: RESPONSE_COUNT,
       prompt: formatPrompt(prompt),
       stop: [" END"],
-      temperature: 0.6,
+      temperature: 0.75,
     })
 
     const results = completion.data.choices.map(({ text }) => text?.trim()).filter(isNonNullable)
