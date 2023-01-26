@@ -35,8 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       model: MODEL_ID,
       n: RESPONSE_COUNT,
       prompt: formatPrompt(prompt),
-      stop: [" END"],
-      temperature: 0.75,
+      stop: [" END", " THE_END"],
+      temperature: 0.7,
     })
 
     const results = completion.data.choices.map(({ text }) => text?.trim()).filter(isNonNullable)
@@ -57,8 +57,14 @@ function cleanHeader(header: string | string[] | undefined): string | undefined 
 }
 
 function formatPrompt(prompt: string): string {
-  const promptCleaned = prompt.trim()
+  const promptCleaned = maybeAddPeriod(prompt.trim())
   return `${promptCleaned}\n\n###\n\n`
+}
+
+function maybeAddPeriod(str: string) {
+  const lastChar = str.slice(-1)
+  const punctuationMarks = [".", "!", "?", '"', "”", "…"]
+  return punctuationMarks.includes(lastChar) ? str : `${str}.`
 }
 
 function sleep(ms: number) {
