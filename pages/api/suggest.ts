@@ -42,6 +42,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const results = completion.data.choices.map(({ text }) => text?.trim()).filter(isNonNullable)
     return res.status(200).json({ status: "success", prompt, results })
   } catch (err: any) {
+    if (typeof err === "object" && err?.response?.status === 429) {
+      return res.status(500).json({ status: "error", reason: "too-many-requests" })
+    }
+
     console.log("Error when fetching suggestions", err)
     return res.status(500).json({ status: "error", reason: "unknown" })
   }

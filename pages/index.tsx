@@ -101,18 +101,12 @@ export default function Home({
             Meet your new AI comedy writing partner. You provide a joke set-up, and it generates the
             zingers.
           </p>
-
-          <div className="mt-4 p-5 lg:p-5 text-red-700 bg-red-100 rounded-lg" role="alert">
-            Due to increased traffic, punchlines.ai is not available right now. Please come back
-            tomorrow and try again!
-          </div>
         </div>
 
         <div className="mb-12 lg:mb-14 stretch flex flex-row gap-3 lg:max-w-3xl">
           <div className="relative flex h-full flex-1 md:flex-col">
             <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-lg shadow-md">
               <TextareaAutosize
-                disabled={true}
                 rows={1}
                 maxRows={5}
                 placeholder="Add opening line..."
@@ -124,7 +118,7 @@ export default function Home({
               />
               <button
                 className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 disabled:hover:bg-transparent"
-                disabled={true}
+                disabled={prompt.length === 0}
                 ref={buttonRef}
                 onClick={handleSubmit}
               >
