@@ -21,8 +21,8 @@ DONE:
 - clear results
 - copy joke text
 - share joke on twitter
+- clean / tweak the prompt?
 
 MAYBE:
 
 - changeable temperature param?
-- clean / tweak the prompt?
