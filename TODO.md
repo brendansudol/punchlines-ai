@@ -1,6 +1,6 @@
 TODO:
 
-- ...
+- changeable temperature param?
 
 DONE:
 
@@ -25,4 +25,4 @@ DONE:
 
 MAYBE:
 
-- changeable temperature param?
+- ...
