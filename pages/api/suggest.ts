@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { Configuration, OpenAIApi } from "openai"
 import limiterFactory from "lambda-rate-limiter"
+import profanity from "leo-profanity"
 import { SuggestResponse } from "../../types"
 
-const MAX_PER_INTERVAL = 10
+const MAX_PER_INTERVAL = 5
 const ONE_MINUTE_MS = 60_000
 const rateLimiter = limiterFactory({ interval: ONE_MINUTE_MS * 10 })
 
@@ -15,18 +16,26 @@ const RESPONSE_COUNT = 3
 const MAX_TOKENS = 100
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<SuggestResponse>) {
+  function errorResponse(reason: string, statusCode = 500) {
+    return res.status(statusCode).json({ status: "error", reason })
+  }
+
   // rudimentary rate limiting check
   try {
     await rateLimiter.check(MAX_PER_INTERVAL, cleanHeader(req.headers["x-real-ip"]) ?? "")
   } catch (_) {
-    return res.status(429).json({ status: "error", reason: "rate-limit" })
+    return errorResponse("rate-limit", 429)
   }
 
   const { prompt } = req.body
   await sleep(500) // prevent loading ui flash
 
   if (prompt == null || typeof prompt !== "string" || prompt.length < 5) {
-    return res.status(500).json({ status: "error", reason: "prompt-too-short" })
+    return errorResponse("prompt-too-short")
+  } else if (prompt.length > 150) {
+    return errorResponse("prompt-too-long")
+  } else if (profanity.check(prompt)) {
+    return errorResponse("profanity")
   }
 
   try {
@@ -43,11 +52,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(200).json({ status: "success", prompt, results })
   } catch (err: any) {
     if (typeof err === "object" && err?.response?.status === 429) {
-      return res.status(500).json({ status: "error", reason: "too-many-requests" })
+      return errorResponse("too-many-requests")
     }
 
-    console.log("Error when fetching suggestions", err)
-    return res.status(500).json({ status: "error", reason: "unknown" })
+    console.log("Error getting suggestions", err)
+    return errorResponse("unknown")
   }
 }
 

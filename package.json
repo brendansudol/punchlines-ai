@@ -20,6 +20,7 @@
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "lambda-rate-limiter": "^3.0.1",
+    "leo-profanity": "^1.7.0",
     "lodash.shuffle": "^4.2.0",
     "next": "13.1.1",
     "openai": "^3.1.0",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@types/lambda-rate-limiter": "^3.0.0",
+    "@types/leo-profanity": "^1.5.0",
     "@types/lodash.shuffle": "^4.2.7",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
