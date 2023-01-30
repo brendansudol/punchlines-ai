@@ -5,8 +5,7 @@ import profanity from "leo-profanity"
 import { SuggestResponse } from "../../types"
 
 const MAX_PER_INTERVAL = 5
-const ONE_MINUTE_MS = 60_000
-const rateLimiter = limiterFactory({ interval: ONE_MINUTE_MS * 10 })
+const rateLimiter = limiterFactory({ interval: 60 * 1000 * 5 }) // 5 mins
 
 const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY })
 const openai = new OpenAIApi(configuration)
