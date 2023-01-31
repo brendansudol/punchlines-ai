@@ -6,7 +6,13 @@ type SuccessResponse = {
 
 type ErrorResponse = {
   status: "error"
-  reason: string
+  reason:
+    | "prompt-too-short"
+    | "prompt-too-long"
+    | "profanity"
+    | "rate-limit-user"
+    | "rate-limit-global"
+    | "unknown"
 }
 
 export type SuggestResponse = SuccessResponse | ErrorResponse

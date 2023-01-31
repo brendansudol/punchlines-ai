@@ -6,7 +6,7 @@ import Link from "next/link"
 import { Popover } from "@headlessui/react"
 import { ArrowPathIcon } from "@heroicons/react/20/solid"
 import { ArrowRightCircleIcon, EllipsisHorizontalIcon } from "@heroicons/react/24/solid"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import TextareaAutosize from "react-textarea-autosize"
 import Typist from "react-typist-component"
 import {
@@ -179,10 +179,7 @@ export default function Home({
 
         {isLoaded(results) && results.value.status === "error" && (
           <div className="p-5 lg:p-7 mb-4 text-red-700 bg-red-100 rounded-lg" role="alert">
-            <span className="font-bold">Sorry!</span> There was a problem generating your joke
-            punchlines. Please try again shortly.
-            <br />
-            <span className="bg-red-200">(reason={results.value.reason || "unknown"})</span>
+            <span className="font-bold">Whoops!</span> {getErrorMessage(results.value.reason)}
           </div>
         )}
 
@@ -260,6 +257,15 @@ export default function Home({
   )
 }
 
+export async function getServerSideProps() {
+  return {
+    props: {
+      key: Date.now(), // so that state resets when clicking header link to refresh
+      initialExamples: getRandomExamples(),
+    },
+  }
+}
+
 function Button({
   children,
   isSmall = false,
@@ -282,12 +288,21 @@ function Button({
   )
 }
 
-export async function getServerSideProps() {
-  return {
-    props: {
-      key: Date.now(), // so that state resets when clicking header link to refresh
-      initialExamples: getRandomExamples(),
-    },
+function getErrorMessage(reason: SuggestResponse.Error["reason"]): string {
+  switch (reason) {
+    case "prompt-too-short":
+      return "Please enter a longer joke set-up and try again. A complete sentence works best."
+    case "prompt-too-long":
+      return "Please enter a shorter joke set-up and try again. A single sentence works best."
+    case "profanity":
+      return "Let's keep it clean, folks. Think Jim Gaffigan or Nate Bargatze."
+    case "rate-limit-user":
+      return "You've reached the joke submission limit for now. Please try again in a couple hours."
+    case "rate-limit-global":
+      return "punchlines.ai is at capacity right now. Please try again shortly."
+    case "unknown":
+    default:
+      return "There was a problem generating your punchlines. Please try again shortly."
   }
 }
 

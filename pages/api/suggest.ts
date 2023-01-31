@@ -5,20 +5,26 @@ import { Ratelimit } from "@upstash/ratelimit"
 import { Redis } from "@upstash/redis"
 import { SuggestResponse } from "../../types"
 
+const CACHE = new Map()
+const MAX_REQUESTS_PER_USER = 12
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv() as any,
-  limiter: Ratelimit.fixedWindow(10, "4 h"), // 10 requests per 4 hours
+  limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, "4 h"), // 4 hour window
+  ephemeralCache: CACHE,
 })
 
 const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY })
 const openai = new OpenAIApi(configuration)
 
-const MODEL_ID = process.env.OPENAI_MODEL_ID ?? "text-ada-001"
-const RESPONSE_COUNT = 3
-const MAX_TOKENS = 100
+const FALLBACK_MODEL_ID = process.env.OPENAI_MODEL_ID ?? "__FALLBACK_MODEL_ID__"
+const MODEL_IDS = {
+  best: process.env.OPENAI_MODEL_ID_BEST ?? FALLBACK_MODEL_ID,
+  good: process.env.OPENAI_MODEL_ID_GOOD ?? FALLBACK_MODEL_ID,
+  okay: process.env.OPENAI_MODEL_ID_OKAY ?? FALLBACK_MODEL_ID,
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<SuggestResponse>) {
-  function errorResponse(reason: string, statusCode = 500) {
+  function errorResponse(reason: SuggestResponse.Error["reason"], statusCode = 500) {
     return res.status(statusCode).json({ status: "error", reason })
   }
 
@@ -35,22 +41,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   // IP-based rate limiting
+  let modelId = MODEL_IDS.best // start w/ best model, but use cheaper ones if need be
   try {
     const ip = getIp(req)
-    const { success } = await ratelimit.limit(ip)
-    if (!success) {
-      return errorResponse("rate-limit", 429)
-    }
+    const { success, remaining } = await ratelimit.limit(ip)
+    if (!success) return errorResponse("rate-limit-user", 429)
+    if (remaining < MAX_REQUESTS_PER_USER / 2) modelId = MODEL_IDS.good
   } catch (err) {
     console.log("Error with rate limiter", err)
+    modelId = MODEL_IDS.okay
   }
 
   // Fetch and parse joke suggestions
   try {
     const completion = await openai.createCompletion({
-      max_tokens: MAX_TOKENS,
-      model: MODEL_ID,
-      n: RESPONSE_COUNT,
+      max_tokens: 100,
+      model: modelId,
+      n: 3,
       prompt: formatPrompt(prompt),
       stop: [" END", " THE_END"],
       temperature: 0.7,
@@ -60,7 +67,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(200).json({ status: "success", prompt, results })
   } catch (err: any) {
     if (typeof err === "object" && err?.response?.status === 429) {
-      return errorResponse("too-many-requests", 429)
+      return errorResponse("rate-limit-global", 429)
     }
 
     console.log("Error getting suggestions", err)
