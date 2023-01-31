@@ -1,11 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { Configuration, OpenAIApi } from "openai"
-import limiterFactory from "lambda-rate-limiter"
 import profanity from "leo-profanity"
+import { Ratelimit } from "@upstash/ratelimit"
+import { Redis } from "@upstash/redis"
 import { SuggestResponse } from "../../types"
 
-const MAX_PER_INTERVAL = 5
-const rateLimiter = limiterFactory({ interval: 60 * 1000 * 5 }) // 5 mins
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv() as any,
+  limiter: Ratelimit.fixedWindow(10, "4 h"), // 10 requests per 4 hours
+})
 
 const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY })
 const openai = new OpenAIApi(configuration)
@@ -19,16 +22,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(statusCode).json({ status: "error", reason })
   }
 
-  // rudimentary rate limiting check
-  try {
-    await rateLimiter.check(MAX_PER_INTERVAL, cleanHeader(req.headers["x-real-ip"]) ?? "")
-  } catch (_) {
-    return errorResponse("rate-limit", 429)
-  }
-
   const { prompt } = req.body
   await sleep(500) // prevent loading ui flash
 
+  // Validate prompt
   if (prompt == null || typeof prompt !== "string" || prompt.length < 5) {
     return errorResponse("prompt-too-short")
   } else if (prompt.length > 150) {
@@ -37,6 +34,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return errorResponse("profanity")
   }
 
+  // IP-based rate limiting
+  try {
+    const ip = getIp(req)
+    const { success } = await ratelimit.limit(ip)
+    if (!success) {
+      return errorResponse("rate-limit", 429)
+    }
+  } catch (err) {
+    console.log("Error with rate limiter", err)
+  }
+
+  // Fetch and parse joke suggestions
   try {
     const completion = await openai.createCompletion({
       max_tokens: MAX_TOKENS,
@@ -51,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     return res.status(200).json({ status: "success", prompt, results })
   } catch (err: any) {
     if (typeof err === "object" && err?.response?.status === 429) {
-      return errorResponse("too-many-requests")
+      return errorResponse("too-many-requests", 429)
     }
 
     console.log("Error getting suggestions", err)
@@ -63,7 +72,16 @@ function isNonNullable<T>(value: T | undefined | null): value is T {
   return value != null
 }
 
-function cleanHeader(header: string | string[] | undefined): string | undefined {
+function getIp(req: NextApiRequest): string {
+  return (
+    parseHeader(req.headers["x-real-ip"]) ??
+    parseHeader(req.headers["x-forwarded-for"]) ??
+    req.socket.remoteAddress ??
+    "__FALLBACK_IP__"
+  )
+}
+
+function parseHeader(header: string | string[] | undefined): string | undefined {
   if (header == null) return undefined
   return Array.isArray(header) ? header[0] : header
 }
