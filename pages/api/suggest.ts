@@ -6,10 +6,10 @@ import { Redis } from "@upstash/redis"
 import { SuggestResponse } from "../../types"
 
 const CACHE = new Map()
-const MAX_REQUESTS_PER_USER = 12
+const MAX_REQUESTS_PER_USER = 8
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv() as any,
-  limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, "4 h"), // 4 hour window
+  limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, "6 h"),
   ephemeralCache: CACHE,
 })
 
@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const ip = getIp(req)
     const { success, remaining } = await ratelimit.limit(ip)
     if (!success) return errorResponse("rate-limit-user", 429)
-    if (remaining < MAX_REQUESTS_PER_USER / 2) modelId = MODEL_IDS.good
+    if (remaining <= MAX_REQUESTS_PER_USER / 2) modelId = MODEL_IDS.good
   } catch (err) {
     console.log("Error with rate limiter", err)
     modelId = MODEL_IDS.okay
