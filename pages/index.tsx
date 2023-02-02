@@ -88,13 +88,13 @@ export default function Home({
           content="Meet your new AI comedy writing partner — you provide a joke set-up, and it generates the zingers."
         />
         <meta property="og:image" content="https://punchlines.ai/preview.png" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="punchlines.ai :: Generate jokes with a GPT-based AI" />
         <meta
           name="twitter:description"
           content="The AI was built using a GPT model and fine-tuned with 10k+ late night comedy monologue jokes."
         />
-        <meta name="twitter:image" content="https://punchlines.ai/preview.png" />
+        <meta name="twitter:image" content="https://punchlines.ai/logo.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
