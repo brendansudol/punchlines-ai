@@ -6,7 +6,7 @@ import { Redis } from "@upstash/redis"
 import { SuggestResponse } from "../../types"
 
 const CACHE = new Map()
-const MAX_REQUESTS_PER_USER = 8
+const MAX_REQUESTS_PER_USER = 6
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv() as any,
   limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, "6 h"),
