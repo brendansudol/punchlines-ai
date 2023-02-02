@@ -310,7 +310,7 @@ function getErrorMessage(reason: SuggestResponse.Error["reason"]): string {
     case "profanity":
       return "Let's keep it clean, folks. Think Jim Gaffigan or Nate Bargatze."
     case "rate-limit-user":
-      return "You've reached the joke submission limit for now. Please try again in a couple hours."
+      return "You've reached the joke submission limit for now. Please try again in a few hours."
     case "rate-limit-global":
       return "punchlines.ai is at capacity right now. Please try again shortly."
     case "unknown":
