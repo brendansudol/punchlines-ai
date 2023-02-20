@@ -101,7 +101,7 @@ export default function Home({
 
       <div className="mx-auto p-4 lg:p-6 max-w-screen-sm min-h-screen">
         <div className="mb-8">
-          <div className="mb-2 flex items-center gap-2">
+          <div className="mb-2 flex items-center space-x-2">
             <Image src="/logo.svg" alt="Vercel Logo" width={40} height={37} priority={true} />
             <Link
               href="/"
@@ -116,33 +116,31 @@ export default function Home({
           </p>
         </div>
 
-        <div className="mb-12 lg:mb-14 stretch flex flex-row gap-3 lg:max-w-3xl">
-          <div className="relative flex h-full flex-1 md:flex-col">
-            <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-lg shadow-md">
-              <TextareaAutosize
-                rows={1}
-                maxRows={5}
-                placeholder="Add opening line..."
-                className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
-                style={{ overflowY: "hidden" }}
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-              <button
-                className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 disabled:hover:bg-transparent"
-                disabled={prompt.length === 0}
-                ref={buttonRef}
-                onClick={handleSubmit}
-              >
-                <ArrowRightCircleIcon className="h-5 w-5" />
-              </button>
-            </div>
+        <div className="mb-12 lg:mb-14">
+          <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-lg shadow-md">
+            <TextareaAutosize
+              rows={1}
+              maxRows={5}
+              placeholder="Add opening line..."
+              className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
+              style={{ overflowY: "hidden" }}
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <button
+              className="absolute p-1 rounded-md text-gray-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-gray-100 disabled:hover:bg-transparent"
+              disabled={prompt.length === 0}
+              ref={buttonRef}
+              onClick={handleSubmit}
+            >
+              <ArrowRightCircleIcon className="h-5 w-5" />
+            </button>
           </div>
         </div>
 
         {isNotStarted(results) && (
-          <div className="flex flex-col gap-12 lg:gap-14">
+          <div className="grid gap-12 lg:gap-14">
             <section>
               <div className="flex items-baseline justify-between">
                 <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
@@ -204,7 +202,7 @@ export default function Home({
               typingDelay={40}
               onTypingDone={handleTypingDone}
             >
-              <div className="flex flex-col gap-4">
+              <div className="grid gap-4">
                 {results.value.results.map((punchline, i, arr) => {
                   const prompt = (results.value as SuggestResponse.Success)?.prompt ?? ""
                   const fullJoke = `${prompt} ${punchline}`.trim()
@@ -249,7 +247,7 @@ export default function Home({
               </div>
             </Typist>
             {!showCursor && (
-              <div className="mt-4 flex gap-2">
+              <div className="mt-4 flex space-x-2">
                 <Button onClick={handleClearResults}>Clear results</Button>
                 <Button onClick={handleSubmit}>Submit again</Button>
               </div>
@@ -257,7 +255,7 @@ export default function Home({
           </div>
         )}
 
-        <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center gap-8 text-xs">
+        <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center space-x-8 text-xs">
           <a href="https://twitter.com/brensudol" className="hover:underline">
             Made by <strong>@brensudol</strong>
           </a>
