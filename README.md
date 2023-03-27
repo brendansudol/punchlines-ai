@@ -4,6 +4,6 @@ https://punchlines.ai/
 OpenAI’s GPT-3 language models. It was fine-tuned on ~10k late night comedy
 monologue jokes. And boy are its arms tired!
 
-For more information on the joke dataset and model training, see [here](https://github.com/brendansudol/joke-gpt).
+For more information on the joke dataset and model training, see [here](https://github.com/brendansudol/joke-gpt)
 
 🤖😂
