@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import { Configuration, OpenAIApi } from "openai"
-import profanity from "leo-profanity"
 import { Ratelimit } from "@upstash/ratelimit"
 import { Redis } from "@upstash/redis"
 import { SuggestResponse } from "../../types"
+import { profanity } from "../../utils/profanity"
 
 const CACHE = new Map()
-const MAX_REQUESTS_PER_USER = 6
+const MAX_REQUESTS_PER_USER = 10
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv() as any,
   limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, "6 h"),
