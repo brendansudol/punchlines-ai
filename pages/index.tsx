@@ -80,9 +80,9 @@ export default function Home({
         <title>punchlines.ai :: Generate jokes with a GPT-based AI</title>
         <meta
           name="description"
-          content="Meet your new AI comedy writing partner — you provide a joke set-up, and it generates the zingers. The AI was built using GPT language models and fine-tuned with over ten thousand late night comedy monologue jokes."
+          content="Meet your new AI comedy writing partner — you provide a joke set-up, and it generates the zingers. The AI was built using GPT language models and fine-tuned with thousands of late night comedy monologue jokes."
         />
-        <meta property="og:title" content="punchlines.ai :: Generate jokes with a GPT-based AI" />
+        <meta property="og:title" content="punchlines.ai :: Generate jokes with AI" />
         <meta
           property="og:description"
           content="Meet your new AI comedy writing partner — you provide a joke set-up, and it generates the zingers."
@@ -168,7 +168,7 @@ export default function Home({
               <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">How does it work?</h2>
               <p>
                 <strong>punchlines.ai</strong> is an AI joke generation tool built on top of
-                OpenAI’s GPT-3 language models. It was fine-tuned on ten thousand late night comedy
+                OpenAI’s GPT-3.5 language model. It was fine-tuned on thousands of late night comedy
                 monologue jokes. And boy are its arms tired!
               </p>
             </section>
@@ -190,7 +190,20 @@ export default function Home({
 
         {isLoaded(results) && results.value.status === "error" && (
           <div className="p-5 lg:p-7 mb-4 text-red-700 bg-red-100 rounded-lg" role="alert">
-            <span className="font-bold">Whoops!</span> {getErrorMessage(results.value.reason)}
+            <div>
+              <span className="font-bold">Sorry!</span> {getErrorMessage(results.value.reason)}
+            </div>
+            {results.value.reason === "rate-limit-user" && (
+              <div className="mt-2">
+                Need more now?{" "}
+                <a
+                  className="font-bold underline"
+                  href="mailto:brendansudol@gmail.com?Subject=punchlines.ai"
+                >
+                  Get in touch ➔
+                </a>
+              </div>
+            )}
           </div>
         )}
 
@@ -199,7 +212,7 @@ export default function Home({
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">Punchline options:</h2>
             <Typist
               cursor={showCursor ? <span className="cursor animate-blink">▋</span> : undefined}
-              typingDelay={40}
+              typingDelay={25}
               onTypingDone={handleTypingDone}
             >
               <div className="grid gap-4">
@@ -308,7 +321,7 @@ function getErrorMessage(reason: SuggestResponse.Error["reason"]): string {
     case "profanity":
       return "Let's keep it clean, folks. Think Jim Gaffigan or Nate Bargatze."
     case "rate-limit-user":
-      return "You've reached the joke submission limit for now. Please try again in a few hours."
+      return "You've reached your joke limit for now. Come back tomorrow for more."
     case "rate-limit-global":
       return "punchlines.ai is at capacity right now. Please try again shortly."
     case "unknown":
