@@ -107,7 +107,7 @@ export default function Home({
               href="/"
               className="text-2xl leading-none font-bold tracking-tight hover:underline"
             >
-              punchlines<span className="text-cyan-500">.</span>ai
+              punchlines<span className="font-serif text-3xl text-cyan-500">.</span>ai
             </Link>
           </div>
           <p>
@@ -211,7 +211,9 @@ export default function Home({
           <div>
             <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">Punchline options:</h2>
             <Typist
-              cursor={showCursor ? <span className="cursor animate-blink">▋</span> : undefined}
+              cursor={
+                showCursor ? <span className="ml-1 text-cyan-500 animate-blink">●</span> : undefined
+              }
               typingDelay={25}
               onTypingDone={handleTypingDone}
             >
