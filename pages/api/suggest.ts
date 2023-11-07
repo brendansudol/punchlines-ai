@@ -6,7 +6,7 @@ import { SuggestResponse } from "../../types"
 import { profanity } from "../../utils/profanity"
 
 const CACHE = new Map()
-const MAX_REQUESTS_PER_USER = 10
+const MAX_REQUESTS_PER_USER = 25
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv() as any,
   limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, "6 h"),
