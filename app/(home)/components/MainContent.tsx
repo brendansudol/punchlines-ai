@@ -2,12 +2,12 @@
 
 import { ArrowRightCircleIcon } from '@heroicons/react/24/solid';
 import { MoreHorizontal, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import TextareaAutosize from 'react-textarea-autosize';
 import Typist from 'react-typist-component';
-import { useSupabase } from '@/components/SupabaseProvider';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -30,23 +30,25 @@ import { getRandomExamples } from '@/lib/data';
 import { SuggestResponse } from '@/types';
 
 export function MainContent({
-  examples: initialExamples
+  examples: initialExamples,
+  hasSubscription,
+  isSignedIn
 }: {
   examples: string[];
+  hasSubscription: boolean;
+  isSignedIn: boolean;
 }) {
   const [prompt, setPrompt] = useState('');
   const [showTyping, setShowTyping] = useState(false);
   const [examples, setExamples] = useState(initialExamples);
+  const [remaining, setRemaining] = useState<number | null>();
   const [results, setResults] =
     useState<AsyncValue<SuggestResponse>>(asyncNotStarted());
 
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const router = useRouter();
-  const { session } = useSupabase();
   const { handlePay } = usePayInit();
-
-  const isSignedIn = session?.user != null;
 
   // TODO: better name for this (and `results`)
   const result = useMemo(() => {
@@ -83,6 +85,7 @@ export function MainContent({
       );
       const data = await res.json();
       setResults(asyncLoaded(data));
+      if (data.status === 'success') setRemaining(data.remaining);
     } catch (_) {
       setResults(asyncLoaded({ status: 'error', reason: 'unknown' }));
     }
@@ -140,9 +143,25 @@ export function MainContent({
     }
   };
 
+  const handleCheckRemaining = async () => {
+    try {
+      const res = await fetch('/api/check-remaining', { method: 'POST' });
+      const data = await res.json();
+      if (data.status === 'success') setRemaining(data.remaining);
+      else throw new Error('Failed to check remaining');
+    } catch (err) {
+      console.error(err);
+      setRemaining(null); // TODO: better fail state
+    }
+  };
+
+  useEffect(() => {
+    handleCheckRemaining();
+  }, [isSignedIn]);
+
   return (
     <>
-      <div className="mb-12 lg:mb-14">
+      <div className="mb-10 lg:mb-12">
         <div className="flex flex-col w-full pl-2 py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white rounded-lg shadow-md">
           <TextareaAutosize
             rows={1}
@@ -162,6 +181,38 @@ export function MainContent({
           >
             <ArrowRightCircleIcon className="h-5 w-5" />
           </button>
+        </div>
+        <div className="mt-3 text-xs text-center">
+          {hasSubscription ? (
+            <div>You have unlimited generations.</div>
+          ) : remaining === undefined ? (
+            <div className="py-[3px] h-4 animate-pulse">
+              <div className="mx-auto h-full bg-slate-200 rounded-full w-3/6" />
+            </div>
+          ) : remaining === null ? (
+            <div className="h-4" />
+          ) : (
+            <div>
+              You have <strong>{Math.max(0, remaining)}</strong> jokes left
+              today.{' '}
+              {isSignedIn ? (
+                <Button
+                  className="p-0 h-auto text-xs text-blue-600 underline underline-offset-4"
+                  variant="link"
+                  onClick={handlePay}
+                >
+                  Get unlimited jokes →
+                </Button>
+              ) : (
+                <Link
+                  className="text-xs text-blue-600 underline underline-offset-4"
+                  href="/sign-in"
+                >
+                  Sign in for more →
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -241,7 +292,7 @@ export function MainContent({
                 variant="link"
                 onClick={handleUpgrade}
               >
-                Get unlimited jokes →
+                Get more jokes →
               </Button>
             </div>
           )}

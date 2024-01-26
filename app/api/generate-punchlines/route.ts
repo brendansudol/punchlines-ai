@@ -5,15 +5,15 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { profanity } from '@/lib//profanity';
+import { getIp, RATE_LIMIT_TOKENS, RATE_LIMIT_WINDOW } from '@/lib/rate-limit';
 import { addPunchlinesToDb } from '@/lib/supabase-admin';
 import { SuggestResponse } from '@/types';
 import { Database } from '@/types/db';
 
 const CACHE = new Map();
-const MAX_REQUESTS_PER_USER = 10;
 const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv() as any,
-  limiter: Ratelimit.fixedWindow(MAX_REQUESTS_PER_USER, '6 h'),
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.fixedWindow(RATE_LIMIT_TOKENS, RATE_LIMIT_WINDOW),
   ephemeralCache: CACHE
 });
 
@@ -46,11 +46,13 @@ export async function POST(req: NextRequest) {
 
   // Rate limiting (if not subscribed)
   const { userId, hasSubscription } = userDetails ?? {};
+  let remaining: number | undefined;
   if (!hasSubscription) {
     try {
       const rateLimitId = userId || getIp(req);
-      const { success } = await ratelimit.limit(rateLimitId);
-      if (!success) return errorResponse('rate-limit-user', 429);
+      const result = await ratelimit.limit(rateLimitId);
+      remaining = result.remaining;
+      if (!result.success) return errorResponse('rate-limit-user', 429);
     } catch (err) {
       console.error('Error with rate limiter', err);
       // todo: early exit?
@@ -89,7 +91,8 @@ export async function POST(req: NextRequest) {
       console.error('Error saving to db', err);
     }
 
-    return NextResponse.json({ status: 'success', id, prompt, results });
+    const successParams = { id, remaining, prompt, results };
+    return NextResponse.json({ status: 'success', ...successParams });
   } catch (err: any) {
     if (typeof err === 'object' && err?.response?.status === 429) {
       return errorResponse('rate-limit-global', 429);
@@ -109,9 +112,9 @@ function errorResponse(
 
 async function getUserDetails() {
   const supabase = createRouteHandlerClient<Database>({ cookies });
-
   const { data: userData } = await supabase.auth.getUser();
   const userId = userData.user?.id;
+
   if (userId == null) return;
 
   const { data: subscription } = await supabase
@@ -129,15 +132,6 @@ async function getUserDetails() {
 
 function isNonNullable<T>(value: T | undefined | null): value is T {
   return value != null;
-}
-
-function getIp(req: NextRequest): string {
-  return (
-    req.ip ??
-    req.headers.get('x-real-ip') ??
-    req.headers.get('x-forwarded-for') ??
-    '__FALLBACK_IP__'
-  );
 }
 
 function formatPrompt(prompt: string): string {

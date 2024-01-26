@@ -1,6 +1,7 @@
 type SuccessResponse = {
   status: 'success';
   id?: string;
+  remaining?: number;
   prompt: string;
   results: string[];
 };
