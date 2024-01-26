@@ -182,7 +182,7 @@ export function MainContent({
             <ArrowRightCircleIcon className="h-5 w-5" />
           </button>
         </div>
-        <div className="mt-3 text-xs text-center">
+        <div className="mt-3 text-[11px] sm:text-xs text-center">
           {hasSubscription ? (
             <div>You have unlimited generations.</div>
           ) : remaining === undefined ? (
@@ -197,15 +197,18 @@ export function MainContent({
               today.{' '}
               {isSignedIn ? (
                 <Button
-                  className="p-0 h-auto text-xs text-blue-600 underline underline-offset-4"
+                  className="p-0 h-auto text-[11px] sm:text-xs text-blue-600 underline underline-offset-4"
                   variant="link"
                   onClick={handlePay}
                 >
-                  Get unlimited jokes →
+                  <span className="sm:hidden">Get unlimited →</span>
+                  <span className="hidden sm:inline">
+                    Get unlimited jokes →
+                  </span>
                 </Button>
               ) : (
                 <Link
-                  className="text-xs text-blue-600 underline underline-offset-4"
+                  className="text-[11px] sm:text-xs text-blue-600 underline underline-offset-4"
                   href="/sign-in"
                 >
                   Sign in for more →
