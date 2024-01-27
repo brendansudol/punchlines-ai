@@ -45,6 +45,7 @@
     "@upstash/ratelimit": "^1.0.0",
     "@upstash/redis": "^1.19.3",
     "@vercel/analytics": "^1.1.2",
+    "@vercel/og": "^0.6.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
