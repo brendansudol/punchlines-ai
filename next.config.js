@@ -4,15 +4,6 @@ const nextConfig = {
   experimental: {
     appDir: true,
     serverActions: true
-  },
-  async redirects() {
-    return [
-      {
-        source: '/hello',
-        destination: '/',
-        permanent: false
-      }
-    ];
   }
 };
 

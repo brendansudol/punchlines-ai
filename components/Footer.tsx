@@ -30,11 +30,29 @@ export function Footer() {
               thousands of late night comedy monologue jokes. And boy are its
               arms tired!
             </p>
-            <p>
-              You can generate a limited number of jokes every day for free. And
-              you can create an account for unlimited knee-slappers (and to save
-              your favorites).
+            <p className="mb-4">
+              You can generate a limited number of jokes every day for free or
+              upgrade for unlimited knee-slappers (and to save and sync your
+              favorites across devices).
             </p>
+            <div className="mt-6 flex items-center space-x-4 sm:space-x-6">
+              <a
+                href="https://twitter.com/brensudol"
+                className="text-sm underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Made by @brensudol
+              </a>
+              <a
+                href="https://github.com/brendansudol/punchlines-ai"
+                className="text-sm underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Code on GitHub
+              </a>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
@@ -43,12 +61,6 @@ export function Footer() {
         className="hover:underline"
       >
         Contact us
-      </a>
-      <a
-        href="https://github.com/brendansudol/punchlines-ai"
-        className="hidden sm:inline hover:underline"
-      >
-        Code on GitHub
       </a>
     </footer>
   );

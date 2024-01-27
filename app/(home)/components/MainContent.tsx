@@ -102,6 +102,7 @@ export function MainContent({
 
   const handleCopy = (joke: string) => () => {
     navigator.clipboard.writeText(joke);
+    toast.success('Copied!');
   };
 
   const handleUpgrade = () => {
