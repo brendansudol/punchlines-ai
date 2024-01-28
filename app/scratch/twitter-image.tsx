@@ -4,45 +4,45 @@ export const runtime = 'edge';
 
 export const alt = 'punchlines.ai';
 export const size = {
-  width: 1024,
-  height: 512
+  width: 1200,
+  height: 600
 };
 
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const duospace = fetch(
-    new URL('../../public/fonts/iAWriterDuoS-Regular.ttf', import.meta.url)
+  const monospaceFont = fetch(
+    new URL('../../public/fonts/iAWriterDuoS-Bold.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
       <div
         style={{
-          display: 'flex',
-          gap: '20px',
-          fontSize: 60,
-          fontFamily: '"duospace"',
-          color: 'black',
-          background: 'white',
-          width: '100%',
           height: '100%',
-          padding: '50px 200px',
+          width: '100%',
+          display: 'flex',
           textAlign: 'center',
+          alignItems: 'center',
           justifyContent: 'center',
-          alignItems: 'center'
+          flexDirection: 'column',
+          backgroundImage: 'linear-gradient(to bottom, #dbf4ff, #fff1f1)'
         }}
       >
-        <img width="100" height="100" src={`https://punchlines.ai/logo.png`} />
+        <img width="100" height="100" src="https://punchlines.ai/logo.png" />
         <div
           style={{
             display: 'flex',
-            alignItems: 'baseline',
-            textTransform: 'uppercase'
+            fontSize: 60,
+            fontStyle: 'normal',
+            color: 'black',
+            lineHeight: 1.5,
+            textTransform: 'uppercase',
+            letterSpacing: '4px'
           }}
         >
           punchlines
-          <span style={{ color: 'red' }}>.</span>
+          <span style={{ color: '#06b6d4' }}>.</span>
           ai
         </div>
       </div>
@@ -51,8 +51,8 @@ export default async function Image() {
       ...size,
       fonts: [
         {
-          name: 'duospace',
-          data: await duospace,
+          name: 'monospace',
+          data: await monospaceFont,
           style: 'normal',
           weight: 400
         }
