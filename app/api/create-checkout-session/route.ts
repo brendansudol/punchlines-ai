@@ -14,9 +14,7 @@ export async function POST(req: Request) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
     const { data: userData } = await supabase.auth.getUser();
     const { id: uuid, email } = userData.user ?? {};
-    if (uuid == null) {
-      return errorResponse('Must be signed in');
-    }
+    if (uuid == null) return errorResponse('Must be signed in');
 
     const customer = await createOrRetrieveCustomer({ uuid, email });
     const sessionParams = getSessionCreateParams(customer);
@@ -38,6 +36,7 @@ function getSessionCreateParams(
   mode: 'payment' | 'subscription' = 'subscription'
 ): Stripe.Checkout.SessionCreateParams {
   const homeUrl = getURL();
+
   return {
     payment_method_types: ['card'],
     billing_address_collection: 'required',

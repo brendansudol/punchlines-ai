@@ -13,7 +13,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import { usePayInit } from '@/hooks/usePayInit';
+import { usePay } from '@/hooks/usePay';
 import { useSignOut } from '@/hooks/useSignOut';
 
 export function UserDropdown({
@@ -24,7 +24,7 @@ export function UserDropdown({
   hasSubscription: boolean;
 }) {
   const { signOut } = useSignOut();
-  const { handlePay } = usePayInit(hasSubscription);
+  const { handlePay } = usePay(hasSubscription);
 
   return (
     <DropdownMenu>

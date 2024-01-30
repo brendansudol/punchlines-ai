@@ -3,7 +3,14 @@
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import type { Session, SupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import type { Database } from '@/types/db';
 
 type SupabaseContext = {
@@ -13,11 +20,7 @@ type SupabaseContext = {
 
 const Context = createContext<SupabaseContext | undefined>(undefined);
 
-export default function SupabaseProvider({
-  children
-}: {
-  children: React.ReactNode;
-}) {
+export function SupabaseProvider({ children }: PropsWithChildren) {
   const [supabase] = useState(() => createPagesBrowserClient());
   const [session, setSession] = useState<Session>();
   const router = useRouter();
@@ -50,7 +53,7 @@ export default function SupabaseProvider({
 export const useSupabase = () => {
   const context = useContext(Context);
 
-  if (context === undefined) {
+  if (context == null) {
     throw new Error('useSupabase must be used inside SupabaseProvider');
   }
 

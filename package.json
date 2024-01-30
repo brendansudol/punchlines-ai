@@ -38,16 +38,12 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@stripe/stripe-js": "^1.54.0",
     "@supabase/auth-helpers-nextjs": "^0.7.0",
-    "@supabase/auth-ui-react": "^0.4.2",
-    "@supabase/auth-ui-shared": "^0.1.6",
     "@supabase/supabase-js": "^2.24.0",
-    "@tailwindcss/forms": "^0.5.7",
     "@upstash/ratelimit": "^1.0.0",
     "@upstash/redis": "^1.19.3",
     "@vercel/analytics": "^1.1.2",
     "@vercel/og": "^0.6.2",
     "class-variance-authority": "^0.7.0",
-    "classnames": "^2.3.2",
     "clsx": "^2.0.0",
     "leo-profanity": "^1.7.0",
     "lodash.shuffle": "^4.2.0",
@@ -58,17 +54,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "react-merge-refs": "^2.0.2",
     "react-textarea-autosize": "^8.4.0",
     "react-typist-component": "^1.0.5",
     "sonner": "^1.3.1",
     "stripe": "^12.7.0",
-    "tailwind-merge": "^2.2.0",
-    "tailwindcss": "^3.3.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwind-merge": "^2.2.0"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+    "@tailwindcss/forms": "^0.5.7",
     "@types/leo-profanity": "^1.5.0",
     "@types/lodash.shuffle": "^4.2.7",
     "@types/node": "^20.2.5",
@@ -85,6 +79,8 @@
     "prettier": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "supabase": "^1.64.8",
+    "tailwindcss": "^3.3.2",
+    "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.0.4"
   }
 }

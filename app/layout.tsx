@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
-import SupabaseProvider from '@/components/SupabaseProvider';
+import { SupabaseProvider } from '@/components/SupabaseProvider';
 import { getURL } from '@/lib/utils';
 
 const meta = {

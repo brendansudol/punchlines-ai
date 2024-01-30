@@ -91,14 +91,19 @@ export async function POST(req: NextRequest) {
       console.error('Error saving to db', err);
     }
 
-    const successParams = { id, remaining, prompt, results };
-    return NextResponse.json({ status: 'success', ...successParams });
-  } catch (err: any) {
-    if (typeof err === 'object' && err?.response?.status === 429) {
+    return NextResponse.json({
+      status: 'success',
+      id,
+      remaining,
+      prompt,
+      results
+    });
+  } catch (error: any) {
+    if (typeof error === 'object' && error?.response?.status === 429) {
       return errorResponse('rate-limit-global', 429);
     }
 
-    console.error('Error getting suggestions', err);
+    console.error('Error getting suggestions', error);
     return errorResponse('unknown');
   }
 }
@@ -114,7 +119,6 @@ async function getUserDetails() {
   const supabase = createRouteHandlerClient<Database>({ cookies });
   const { data: userData } = await supabase.auth.getUser();
   const userId = userData.user?.id;
-
   if (userId == null) return;
 
   const { data: subscription } = await supabase

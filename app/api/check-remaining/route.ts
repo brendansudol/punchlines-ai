@@ -8,7 +8,7 @@ import { Database } from '@/types/db';
 const redis = Redis.fromEnv();
 
 export async function POST(req: NextRequest) {
-  if (req.method !== 'POST') return NextResponse.json({ status: 'failed' });
+  if (req.method !== 'POST') return NextResponse.json({ status: 'error' });
 
   try {
     const supabase = createRouteHandlerClient<Database>({ cookies });
@@ -20,6 +20,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ status: 'success', remaining });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ status: 'failed' });
+    return NextResponse.json({ status: 'error' });
   }
 }

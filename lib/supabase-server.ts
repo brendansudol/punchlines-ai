@@ -1,5 +1,3 @@
-// TODO: refactor
-
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
@@ -17,7 +15,7 @@ export async function getSession() {
     return data.session;
   } catch (error) {
     console.error('getSession error:', error);
-    return null;
+    return;
   }
 }
 
@@ -28,21 +26,7 @@ export async function getUser() {
     return data.user;
   } catch (error) {
     console.error('getUser error:', error);
-    return null;
-  }
-}
-
-export async function getUserDetails() {
-  const supabase = createServerSupabaseClient();
-  try {
-    const { data: userDetails } = await supabase
-      .from('users')
-      .select('*')
-      .single();
-    return userDetails;
-  } catch (error) {
-    console.error('getUserDetails error:', error);
-    return null;
+    return;
   }
 }
 
@@ -58,13 +42,12 @@ export async function getSubscription() {
     return subscription;
   } catch (error) {
     console.error('getSubscription error:', error);
-    return null;
+    return;
   }
 }
 
 export async function getUserJokes() {
   const supabase = createServerSupabaseClient();
-
   try {
     const { data: userData } = await supabase.auth.getUser();
     const { user } = userData;
@@ -81,20 +64,3 @@ export async function getUserJokes() {
     return;
   }
 }
-
-export const getActiveProductsWithPrices = async () => {
-  const supabase = createServerSupabaseClient();
-  const { data, error } = await supabase
-    .from('products')
-    .select('*, prices(*)')
-    .eq('active', true)
-    .eq('prices.active', true)
-    .order('metadata->index')
-    .order('unit_amount', { foreignTable: 'prices' });
-
-  if (error) {
-    console.log('getActiveProductsWithPrices error:', error.message);
-  }
-
-  return data ?? [];
-};

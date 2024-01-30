@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function postData(url: string, data?: { [key: string]: any }) {
+export async function fetchPost(url: string, data?: { [key: string]: any }) {
   const response = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

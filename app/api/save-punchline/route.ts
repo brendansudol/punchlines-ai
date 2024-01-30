@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { Database } from '@/types/db';
 import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+import { Database } from '@/types/db';
 
 export async function POST(req: NextRequest) {
   if (req.method !== 'POST') return errorResponse('Unknown', 405);
@@ -25,8 +25,6 @@ export async function POST(req: NextRequest) {
     .select('*')
     .eq('id', id);
   const [joke] = jokes ?? [];
-
-  console.log({ jokes, joke, id, punchlineIndex, userId });
 
   if (joke == null || joke['user_id'] !== userId) {
     return errorResponse('Invalid joke');

@@ -2,8 +2,8 @@
 
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
-import { stripe } from './stripe';
 import type { Database } from '../types/db';
+import { stripe } from './stripe';
 
 type Product = Database['public']['Tables']['products']['Row'];
 type Price = Database['public']['Tables']['prices']['Row'];

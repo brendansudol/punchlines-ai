@@ -19,7 +19,7 @@ export function Footer() {
       />
       <Dialog>
         <DialogTrigger className="hover:underline">Learn more</DialogTrigger>
-        <DialogContent className="max-w-[80%] sm:max-w-[425px]">
+        <DialogContent className="max-w-[85%] sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>About</DialogTitle>
           </DialogHeader>
@@ -38,7 +38,7 @@ export function Footer() {
             <div className="mt-6 flex items-center space-x-4 sm:space-x-6">
               <a
                 href="https://twitter.com/brensudol"
-                className="text-sm underline"
+                className="text-xs sm:text-sm underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -46,7 +46,7 @@ export function Footer() {
               </a>
               <a
                 href="https://github.com/brendansudol/punchlines-ai"
-                className="text-sm underline"
+                className="text-xs sm:text-sm underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
