@@ -39,16 +39,10 @@ export async function POST(req: NextRequest) {
     return errorResponse('No punchline');
   }
 
+  const newEntry = { gen_joke_id: id, user_id: userId, setup, punchline };
   const { data, error } = await supabase
     .from('saved_jokes')
-    .insert([
-      {
-        gen_joke_id: id,
-        user_id: userId,
-        setup,
-        punchline
-      }
-    ])
+    .insert([newEntry])
     .select('*')
     .single();
 
