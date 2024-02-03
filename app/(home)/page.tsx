@@ -12,16 +12,13 @@ export default async function HomePage() {
     getSubscription()
   ]);
 
-  const isSignedIn = user != null;
-  const hasSubscription = subscription != null;
-
   return (
     <Container>
       <Header />
       <MainContent
         examples={examples}
-        hasSubscription={hasSubscription}
-        isSignedIn={isSignedIn}
+        isSignedIn={user != null}
+        hasSubscription={subscription != null}
       />
       <Footer />
     </Container>

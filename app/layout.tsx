@@ -4,29 +4,22 @@ import type { Metadata } from 'next';
 import { PropsWithChildren } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { SupabaseProvider } from '@/components/SupabaseProvider';
+import { METADATA } from '@/lib/consts';
 import { getURL } from '@/lib/utils';
 
-const meta = {
-  title: 'punchlines.ai :: Generate jokes with AI',
-  descriptionShort:
-    'Meet your new AI comedy writing partner — you provide a joke set-up, and it generates the zingers.',
-  descriptionLong:
-    'Meet your new AI comedy writing partner — you provide a joke set-up, and it generates the zingers. The AI was built using GPT language models and fine-tuned with thousands of late night comedy monologue jokes.'
-};
-
 export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.descriptionLong,
+  title: METADATA.title,
+  description: METADATA.descriptionLong,
   metadataBase: new URL(getURL()),
   robots: 'follow, index',
   openGraph: {
     url: getURL(),
-    title: meta.title,
-    description: meta.descriptionShort
+    title: METADATA.title,
+    description: METADATA.descriptionShort
   },
   twitter: {
-    title: meta.title,
-    description: meta.descriptionShort,
+    title: METADATA.title,
+    description: METADATA.descriptionShort,
     card: 'summary_large_image',
     images: '/share.png'
   }

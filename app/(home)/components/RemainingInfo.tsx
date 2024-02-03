@@ -22,6 +22,7 @@ export function RemainingInfo({
     );
   }
 
+  // loading state
   if (remaining === undefined) {
     return (
       <div className="mt-3">
@@ -32,6 +33,7 @@ export function RemainingInfo({
     );
   }
 
+  // error state
   if (remaining === null) {
     return (
       <div className="mt-3">

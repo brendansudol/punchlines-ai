@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import {
@@ -19,16 +20,17 @@ const relevantEvents = new Set([
 
 export async function POST(req: Request) {
   const body = await req.text();
-  const signature = req.headers.get('stripe-signature') as string;
+  const signature = req.headers.get('stripe-signature');
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!signature || !secret) return;
+  if (signature == null || secret == null) return;
 
   let event: Stripe.Event;
   try {
     event = stripe.webhooks.constructEvent(body, signature, secret);
-  } catch (err: any) {
-    console.log(`❌ Error message: ${err.message}`);
-    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+  } catch (error) {
+    const message = `Webhook error: ${JSON.stringify(error)}`;
+    console.log(message);
+    return new Response(message, { status: 400 });
   }
 
   if (relevantEvents.has(event.type)) {
@@ -75,5 +77,5 @@ export async function POST(req: Request) {
     }
   }
 
-  return new Response(JSON.stringify({ received: true }));
+  return NextResponse.json({ received: true });
 }

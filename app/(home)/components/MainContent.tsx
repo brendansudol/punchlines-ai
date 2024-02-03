@@ -24,12 +24,12 @@ import { ZeroState } from './ZeroState';
 
 export function MainContent({
   examples: initialExamples,
-  hasSubscription,
-  isSignedIn
+  isSignedIn,
+  hasSubscription
 }: {
   examples: string[];
-  hasSubscription: boolean;
   isSignedIn: boolean;
+  hasSubscription: boolean;
 }) {
   const [prompt, setPrompt] = useState('');
   const [showTyping, setShowTyping] = useState(false);

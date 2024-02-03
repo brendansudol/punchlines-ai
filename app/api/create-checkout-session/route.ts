@@ -26,8 +26,8 @@ export async function POST(req: Request) {
   }
 }
 
-function errorResponse(reason: string, statusCode = 500) {
-  return NextResponse.json({ status: 'error', reason }, { status: statusCode });
+function errorResponse(reason: string, status = 500) {
+  return NextResponse.json({ status: 'error', reason }, { status });
 }
 
 function getSessionCreateParams(

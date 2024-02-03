@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     .from('generated_jokes')
     .select('*')
     .eq('id', id);
+
   const [joke] = jokes ?? [];
 
   if (joke == null || joke['user_id'] !== userId) {
@@ -54,6 +55,6 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ status: 'success', data });
 }
 
-function errorResponse(reason: string, statusCode = 500) {
-  return NextResponse.json({ status: 'error', reason }, { status: statusCode });
+function errorResponse(reason: string, status = 500) {
+  return NextResponse.json({ status: 'error', reason }, { status });
 }

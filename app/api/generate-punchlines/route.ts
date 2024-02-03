@@ -108,11 +108,8 @@ export async function POST(req: NextRequest) {
   }
 }
 
-function errorResponse(
-  reason: SuggestResponse.Error['reason'],
-  statusCode = 500
-) {
-  return NextResponse.json({ status: 'error', reason }, { status: statusCode });
+function errorResponse(reason: SuggestResponse.Error['reason'], status = 500) {
+  return NextResponse.json({ status: 'error', reason }, { status });
 }
 
 async function getUserDetails() {
