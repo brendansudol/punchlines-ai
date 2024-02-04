@@ -1,16 +1,10 @@
 'use client';
 
-import { MoreHorizontal } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { Bookmark } from 'lucide-react';
+import Link from 'next/link';
 import toast from 'react-hot-toast';
 import Typist from 'react-typist-component';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
 import { fetchPost } from '@/lib/utils';
 import { SuggestResponse } from '@/types';
 
@@ -29,9 +23,7 @@ export function ResultsSuccess({
   onClear: () => void;
   onResubmit: () => void;
 }) {
-  const { id, prompt, results } = value;
-
-  const router = useRouter();
+  const { id, results } = value;
 
   const handleSave = (idx: number) => async () => {
     if (id == null) return;
@@ -52,17 +44,19 @@ export function ResultsSuccess({
         throw new Error('Failed to save joke.');
       }
 
-      toast.success('Success!', { id: toastId });
-      setTimeout(() => router.push(`/p/${savedId}`), 500);
+      toast.success(
+        <div>
+          Saved!{' '}
+          <Link className="text-blue-600 underline" href={`/p/${savedId}`}>
+            View joke →
+          </Link>
+        </div>,
+        { id: toastId, duration: 5_000 }
+      );
     } catch (err) {
       console.error(err);
       toast.error('Failed to save', { id: toastId });
     }
-  };
-
-  const handleCopy = (joke: string) => () => {
-    navigator.clipboard.writeText(joke);
-    toast.success('Copied!');
   };
 
   const title = (
@@ -110,39 +104,15 @@ export function ResultsSuccess({
             <div className="whitespace-pre-line pr-4">
               {i + 1}. {punchline}
             </div>
-            <div className="more-menu-container absolute top-1 right-1">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-6 w-6">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-44" align="end">
-                  {id != null && (
-                    <DropdownMenuItem
-                      className="text-xs"
-                      onClick={handleSave(i)}
-                    >
-                      Save punchline
-                    </DropdownMenuItem>
-                  )}
-                  <DropdownMenuItem
-                    className="text-xs"
-                    onClick={handleCopy(toFullJoke(prompt, punchline))}
-                  >
-                    Copy to clipboard
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="text-xs" asChild>
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={makeTweetUrl(toFullJoke(prompt, punchline))}
-                    >
-                      Share on Twitter
-                    </a>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            <div className="more-menu-container absolute top-[5px] right-[5px]">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6"
+                onClick={handleSave(i)}
+              >
+                <Bookmark className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         ))}
@@ -169,14 +139,4 @@ export function ResultsSuccess({
       </div>
     </div>
   );
-}
-
-function toFullJoke(prompt: string | undefined, punchline: string) {
-  return `${prompt ?? ''} ${punchline}`.trim();
-}
-
-function makeTweetUrl(joke: string) {
-  const url = window.location.origin;
-  const params = new URLSearchParams({ text: joke, url }).toString();
-  return `https://twitter.com/intent/tweet?${params}`;
 }
