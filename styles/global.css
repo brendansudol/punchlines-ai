@@ -75,6 +75,10 @@ a {
   text-decoration: none;
 }
 
+.more-menu-container .cursor {
+  display: none;
+}
+
 .animate-blink {
   animation: blink 1s steps(3, start) infinite;
 }

@@ -1,7 +1,9 @@
 'use client';
 
-import { Bookmark } from 'lucide-react';
+import { Bookmark, BookmarkCheck } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Typist from 'react-typist-component';
 import { Button } from '@/components/ui/button';
@@ -24,12 +26,19 @@ export function ResultsSuccess({
   onResubmit: () => void;
 }) {
   const { id, results } = value;
+  const router = useRouter();
+  const [saved, setSaved] = useState<{ [idx: string]: string }>({});
 
   const handleSave = (idx: number) => async () => {
     if (id == null) return;
 
     if (!isSignedIn) {
       toast.error('Sign in to save jokes');
+      return;
+    }
+
+    if (saved[idx] != null) {
+      toast('Already saved!');
       return;
     }
 
@@ -44,10 +53,15 @@ export function ResultsSuccess({
         throw new Error('Failed to save joke.');
       }
 
+      setSaved((prev) => ({ ...prev, [idx]: savedId }));
       toast.success(
         <div>
           Saved!{' '}
-          <Link className="text-blue-600 underline" href={`/p/${savedId}`}>
+          <Link
+            className="text-blue-600 underline"
+            href={`/p/${savedId}`}
+            target="_blank"
+          >
             View joke →
           </Link>
         </div>,
@@ -70,7 +84,7 @@ export function ResultsSuccess({
       <div>
         {title}
         <Typist
-          cursor={<span className="ml-1 animate-blink">▋</span>}
+          cursor={<span className="ml-1 animate-blink cursor">▋</span>}
           typingDelay={25}
           onTypingDone={onTypingDone}
         >
@@ -110,8 +124,13 @@ export function ResultsSuccess({
                 size="icon"
                 className="h-6 w-6"
                 onClick={handleSave(i)}
+                disabled={saved[i] != null}
               >
-                <Bookmark className="h-4 w-4" />
+                {saved[i] != null ? (
+                  <BookmarkCheck className="h-4 w-4" />
+                ) : (
+                  <Bookmark className="h-4 w-4" />
+                )}
               </Button>
             </div>
           </div>
