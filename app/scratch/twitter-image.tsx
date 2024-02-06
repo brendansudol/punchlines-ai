@@ -1,3 +1,4 @@
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
 import { ImageResponse } from 'next/server';
 
 export const runtime = 'edge';
@@ -11,6 +12,13 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const supabase = createPagesBrowserClient();
+  const joke = await supabase
+    .from('saved_jokes')
+    .select()
+    .match({ id: '372e8519-612b-4f6f-837a-1944b24f75d7' })
+    .single();
+
   const monospaceFont = fetch(
     new URL('../../public/fonts/iAWriterDuoS-Bold.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer());
@@ -33,7 +41,8 @@ export default async function Image() {
         <div
           style={{
             display: 'flex',
-            fontSize: 60,
+            flexWrap: 'wrap',
+            fontSize: 20,
             fontStyle: 'normal',
             color: 'black',
             lineHeight: 1.5,
@@ -41,9 +50,22 @@ export default async function Image() {
             letterSpacing: '4px'
           }}
         >
-          punchlines
-          <span style={{ color: '#06b6d4' }}>.</span>
-          ai
+          {joke?.data?.setup ?? 'STAY TUNED!'}
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            marginTop: 20,
+            fontSize: 20,
+            fontStyle: 'normal',
+            color: 'black',
+            lineHeight: 1.5,
+            textTransform: 'uppercase',
+            letterSpacing: '4px'
+          }}
+        >
+          {joke?.data?.punchline ?? 'STAY TUNED!'}
         </div>
       </div>
     ),
