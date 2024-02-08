@@ -1,4 +1,5 @@
 import { ArrowRight, Bot, UserRound } from 'lucide-react';
+import { Metadata, ResolvingMetadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/Container';
@@ -7,11 +8,22 @@ import { Header } from '@/components/Header';
 import { Button } from '@/components/ui/button';
 import { createServerSupabaseClient } from '@/lib/supabase-server';
 
-export default async function PunchlinePage({
-  params: { id }
-}: {
+type Props = {
   params: { id: string };
-}) {
+};
+
+export async function generateMetadata(
+  { params: { id } }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const url = `https://punchlines.ai/p/${id}`;
+
+  return {
+    openGraph: { url }
+  };
+}
+
+export default async function PunchlinePage({ params: { id } }: Props) {
   const supabase = createServerSupabaseClient();
   const { data } = await supabase
     .from('saved_jokes')
