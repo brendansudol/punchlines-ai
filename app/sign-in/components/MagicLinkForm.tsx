@@ -48,6 +48,7 @@ export function MagicLinkForm() {
           <div className="space-y-1">
             <Label htmlFor="name">Email</Label>
             <Input
+              autoFocus={true}
               id="email"
               type="email"
               disabled={status === 'LOADING' || status === 'SUCCESS'}
