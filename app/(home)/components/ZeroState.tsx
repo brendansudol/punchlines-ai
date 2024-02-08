@@ -32,7 +32,7 @@ export function ZeroState({
           {examples.map((ex, i) => (
             <div
               key={i}
-              className="p-3 text-sm rounded-lg bg-slate-100 hover:bg-slate-200 cursor-pointer"
+              className="p-3 text-sm bg-slate-50 border border-slate-200 hover:bg-slate-100 rounded-lg cursor-pointer"
               onClick={() => onClickExample(ex)}
             >
               <span className="select-none">“</span>
