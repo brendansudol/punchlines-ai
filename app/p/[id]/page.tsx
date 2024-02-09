@@ -17,9 +17,10 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const url = `https://punchlines.ai/p/${id}`;
+  const { openGraph } = await parent;
 
   return {
-    openGraph: { url }
+    openGraph: { ...openGraph, url }
   };
 }
 

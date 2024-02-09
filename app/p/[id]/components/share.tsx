@@ -17,7 +17,7 @@ function ShareJoke({ setup, punchline }: { setup: string; punchline: string }) {
   return (
     <div
       style={{
-        padding: '12%', // TODO: make dynamic?
+        padding: 80, // TODO: make dynamic?
         height: '100%',
         width: '100%',
         display: 'flex',
@@ -25,7 +25,7 @@ function ShareJoke({ setup, punchline }: { setup: string; punchline: string }) {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundImage: 'linear-gradient(to bottom, #dbf4ff, #fff1f1)',
-        fontSize: 30,
+        fontSize: 34,
         lineHeight: 1.25,
         fontFamily: '"mono"'
       }}
@@ -71,20 +71,20 @@ function ShareJoke({ setup, punchline }: { setup: string; punchline: string }) {
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}>
           <div
             style={{
-              width: 40,
-              height: 40,
+              width: 50,
+              height: 50,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: '#fff',
-              border: '1px solid #ccc',
-              borderRadius: 8
+              border: '1px solid #000',
+              borderRadius: 10
             }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="32"
+              height="32"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -102,8 +102,8 @@ function ShareJoke({ setup, punchline }: { setup: string; punchline: string }) {
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 20 }}>
           <div
             style={{
-              width: 40,
-              height: 40,
+              width: 50,
+              height: 50,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -114,8 +114,8 @@ function ShareJoke({ setup, punchline }: { setup: string; punchline: string }) {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="32"
+              height="32"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
