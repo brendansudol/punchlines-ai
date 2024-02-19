@@ -13,7 +13,7 @@ export function Logo() {
       />
       <Link
         href="/"
-        className="flex items-baseline text-base sm:text-xl uppercase font-bold tracking-wider hover:underline underline-offset-2"
+        className="flex items-baseline text-base sm:text-xl uppercase font-bold tracking-wider hover:underline underline-offset-2 decoration-2"
       >
         punchlines
         <span className="font-serif text-lg text-2xl leading-none text-cyan-500">

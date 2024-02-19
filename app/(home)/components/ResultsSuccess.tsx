@@ -2,7 +2,6 @@
 
 import { Bookmark, BookmarkCheck } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Typist from 'react-typist-component';
@@ -26,7 +25,6 @@ export function ResultsSuccess({
   onResubmit: () => void;
 }) {
   const { id, results } = value;
-  const router = useRouter();
   const [saved, setSaved] = useState<{ [idx: string]: string }>({});
 
   const handleSave = (idx: number) => async () => {
@@ -65,7 +63,7 @@ export function ResultsSuccess({
             View joke →
           </Link>
         </div>,
-        { id: toastId, duration: 5_000 }
+        { id: toastId, duration: 3_000 }
       );
     } catch (err) {
       console.error(err);
@@ -119,19 +117,22 @@ export function ResultsSuccess({
               {i + 1}. {punchline}
             </div>
             <div className="more-menu-container absolute top-[5px] right-[5px]">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-6 w-6"
-                onClick={handleSave(i)}
-                disabled={saved[i] != null}
-              >
-                {saved[i] != null ? (
-                  <BookmarkCheck className="h-4 w-4" />
-                ) : (
+              {saved[i] == null ? (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6"
+                  onClick={handleSave(i)}
+                >
                   <Bookmark className="h-4 w-4" />
-                )}
-              </Button>
+                </Button>
+              ) : (
+                <Button variant="ghost" size="icon" className="h-6 w-6" asChild>
+                  <Link href={`/p/${saved[i]}`} target="_blank">
+                    <BookmarkCheck className="h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         ))}
