@@ -1,11 +1,17 @@
 'use client';
 
-import { Bookmark, BookmarkCheck } from 'lucide-react';
+import { Bookmark, BookmarkCheck, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Typist from 'react-typist-component';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 import { fetchPost } from '@/lib/utils';
 import { SuggestResponse } from '@/types';
 
@@ -24,7 +30,7 @@ export function ResultsSuccess({
   onClear: () => void;
   onResubmit: () => void;
 }) {
-  const { id, results } = value;
+  const { id, prompt, results } = value;
   const [saved, setSaved] = useState<{ [idx: string]: string }>({});
 
   const handleSave = (idx: number) => async () => {
@@ -71,6 +77,11 @@ export function ResultsSuccess({
     }
   };
 
+  const handleCopy = (joke: string) => () => {
+    navigator.clipboard.writeText(joke);
+    toast.success('Copied!');
+  };
+
   const title = (
     <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">
       Punchline options:
@@ -90,7 +101,7 @@ export function ResultsSuccess({
             {results.map((punchline, i, arr) => (
               <div
                 key={i}
-                className="relative p-4 border border-slate-200 rounded-lg"
+                className="relative p-5 border border-slate-200 rounded-lg"
               >
                 <div className="whitespace-pre-line pr-4">
                   {i + 1}. {punchline}
@@ -111,12 +122,36 @@ export function ResultsSuccess({
         {results.map((punchline, i) => (
           <div
             key={i}
-            className="relative p-4 border border-slate-200 rounded-lg"
+            className="relative p-5 border border-slate-200 rounded-lg"
           >
             <div className="whitespace-pre-line pr-4">
               {i + 1}. {punchline}
             </div>
-            <div className="more-menu-container absolute top-[5px] right-[5px]">
+            <div className="more-menu-container p-1 absolute flex flex-col justify-between top-0 right-0 h-full">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-44" align="end">
+                  <DropdownMenuItem
+                    className="text-xs"
+                    onClick={handleCopy(toFullJoke(prompt, punchline))}
+                  >
+                    Copy to clipboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="text-xs" asChild>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={makeTweetUrl(toFullJoke(prompt, punchline))}
+                    >
+                      Share on Twitter
+                    </a>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
               {saved[i] == null ? (
                 <Button
                   variant="ghost"
@@ -159,4 +194,14 @@ export function ResultsSuccess({
       </div>
     </div>
   );
+}
+
+function toFullJoke(prompt: string | undefined, punchline: string) {
+  return `${prompt ?? ''} ${punchline}`.trim();
+}
+
+function makeTweetUrl(joke: string) {
+  const url = window.location.origin;
+  const params = new URLSearchParams({ text: joke, url }).toString();
+  return `https://twitter.com/intent/tweet?${params}`;
 }
