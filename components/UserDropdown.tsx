@@ -63,7 +63,9 @@ export function UserDropdown({
         <DropdownMenuItem asChild>
           <Link href="/saved">Saved jokes</Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/account">Account details</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={signOut}>Log out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
