@@ -15,6 +15,7 @@ import {
 import { getRandomExamples } from '@/lib/data';
 import { fetchPost } from '@/lib/utils';
 import { SuggestResponse } from '@/types';
+import toast from 'react-hot-toast';
 import { Loading } from './Loading';
 import { PromptInput } from './PromptInput';
 import { RemainingInfo } from './RemainingInfo';
@@ -88,7 +89,8 @@ export function MainContent({
       else throw new Error('Failed to check remaining');
     } catch (err) {
       console.error(err);
-      setRemaining(null); // TODO: better fail state
+      setRemaining(null);
+      toast.error('Failed to check remaining');
     }
   };
 
