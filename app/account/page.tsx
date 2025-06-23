@@ -20,14 +20,15 @@ export default async function AccountPage() {
     <Container>
       <Header />
       <div className="border-t border-gray-200 pt-8 space-y-6">
-        {joinedDate != null && (
-          <div className="space-y-2">
-            <h2 className="text-sm font-bold uppercase tracking-wider">
-              Account Info
-            </h2>
-            <p className="text-sm">Joined {joinedDate}.</p>
-          </div>
-        )}
+        <div className="space-y-2">
+          <h2 className="text-sm font-bold uppercase tracking-wider">
+            Account Details
+          </h2>
+          {user.email && <p className="text-sm">Email: {user.email}</p>}
+          {joinedDate != null && (
+            <p className="text-sm">Joined: {joinedDate}</p>
+          )}
+        </div>
         <div className="space-y-2">
           <h3 className="text-sm font-bold uppercase tracking-wider">
             Subscription
