@@ -4,7 +4,7 @@ import { Redis } from '@upstash/redis';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { profanity } from '@/lib//profanity';
+import { profanity } from '@/lib/profanity';
 import { getIp, RATE_LIMIT_TOKENS, RATE_LIMIT_WINDOW } from '@/lib/rate-limit';
 import { addPunchlinesToDb } from '@/lib/supabase-admin';
 import { SuggestResponse } from '@/types';
