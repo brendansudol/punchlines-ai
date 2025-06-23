@@ -61,6 +61,9 @@ export function UserDropdown({
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
+          <Link href="/account">Account</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href="/saved">Saved jokes</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
