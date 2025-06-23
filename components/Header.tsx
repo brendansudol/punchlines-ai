@@ -6,7 +6,6 @@ export function Header() {
     <div className="mb-8">
       <div className="mb-1.5 flex items-center justify-between space-x-2">
         <Logo />
-        {/* @ts-expect-error */}
         <AuthNav />
       </div>
       <p>
