@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { getSubscription, getUser } from '@/lib/supabase-server';
 import { UpdateSubscriptionButton } from './components/UpdateSubscriptionButton';
+import { SubscribeButton } from './components/SubscribeButton';
 
 export default async function AccountPage() {
   const [user, subscription] = await Promise.all([
@@ -39,7 +40,10 @@ export default async function AccountPage() {
               <UpdateSubscriptionButton />
             </div>
           ) : (
-            <p className="text-sm">No active subscription.</p>
+            <div className="space-y-2">
+              <p className="text-sm">No active subscription.</p>
+              <SubscribeButton />
+            </div>
           )}
         </div>
       </div>
