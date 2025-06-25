@@ -14,7 +14,7 @@ export default async function HomePage() {
 
   return (
     <Container>
-      <Header />
+      <Header showDescription />
       <MainContent
         examples={examples}
         isSignedIn={user != null}
