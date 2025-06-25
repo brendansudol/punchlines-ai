@@ -11,7 +11,7 @@ export default async function AccountPage() {
     getSubscription()
   ]);
 
-  if (user == null) return redirect('/');
+  if (user == null) return redirect('/sign-in');
 
   const joinedDate = formatDate(user.created_at);
   const hasSubscription = subscription != null;
