@@ -16,7 +16,7 @@ export default async function SavedJokesPage() {
   return (
     <Container>
       <Header />
-      <div className="border-t border-gray-200 pt-8">
+      <div className="border-t border-gray-100 pt-8">
         {jokes.length === 0 ? (
           <div className="px-6 py-8 sm:px-8 sm:py-10 bg-slate-100 rounded-2xl">
             <div className="text-sm font-bold uppercase tracking-wider text-center">

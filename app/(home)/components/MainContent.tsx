@@ -97,7 +97,7 @@ export function MainContent({
   }, [isSignedIn]);
 
   return (
-    <>
+    <div className="pt-4">
       <div className="mb-10 lg:mb-12">
         <PromptInput
           value={prompt}
@@ -136,6 +136,6 @@ export function MainContent({
           onResubmit={handleSubmit}
         />
       )}
-    </>
+    </div>
   );
 }
