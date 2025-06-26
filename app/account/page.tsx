@@ -3,8 +3,8 @@ import { Container } from '@/components/Container';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { getSubscription, getUser } from '@/lib/supabase-server';
-import { UpdateSubscriptionButton } from './components/UpdateSubscriptionButton';
 import { SubscribeButton } from './components/SubscribeButton';
+import { UpdateSubscriptionButton } from './components/UpdateSubscriptionButton';
 
 export default async function AccountPage() {
   const [user, subscription] = await Promise.all([
@@ -20,7 +20,7 @@ export default async function AccountPage() {
   return (
     <Container>
       <Header />
-      <div className="border-t border-gray-200 pt-8 space-y-6">
+      <div className="border-t border-gray-100 pt-8 space-y-8">
         <div className="space-y-2">
           <h2 className="text-sm font-bold uppercase tracking-wider">
             Account Details
