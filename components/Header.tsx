@@ -1,11 +1,11 @@
 import { AuthNav } from './AuthNav';
 import { Logo } from './Logo';
 
-type HeaderProps = {
+interface Props {
   showDescription?: boolean;
-};
+}
 
-export function Header({ showDescription = false }: HeaderProps) {
+export function Header({ showDescription = false }: Props) {
   return (
     <div className="mb-4">
       <div className="mb-1.5 flex items-center justify-between space-x-2">
