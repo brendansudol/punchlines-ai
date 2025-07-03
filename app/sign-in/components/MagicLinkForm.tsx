@@ -3,6 +3,7 @@
 import { AlertCircle, CheckCircle, Loader2, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useSupabase } from '@/components/SupabaseProvider';
+import { getURL } from '@/lib/utils';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import {
@@ -27,7 +28,10 @@ export function MagicLinkForm() {
     event.preventDefault();
     setStatus('LOADING');
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: getURL() + 'auth/callback' }
+      });
       setStatus(error != null ? 'ERROR' : 'SUCCESS');
     } catch (error) {
       console.error(error);

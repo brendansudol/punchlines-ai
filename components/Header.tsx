@@ -10,7 +10,7 @@ export function Header({ showDescription = false }: Props) {
     <div className="mb-4">
       <div className="mb-1.5 flex items-center justify-between space-x-2">
         <Logo />
-        {/* @ts-expect-error */}
+        {/* @ts-expect-error Server Component */}
         <AuthNav />
       </div>
       {showDescription && (
