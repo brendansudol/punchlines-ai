@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       if (!result.success) return errorResponse('rate-limit-user', 429);
     } catch (err) {
       console.error('Error with rate limiter', err);
-      // todo: early exit?
+      return errorResponse('rate-limit-error', 503);
     }
   }
 

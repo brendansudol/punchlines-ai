@@ -47,6 +47,8 @@ function getErrorMessage(reason: SuggestResponse.Error['reason']): string {
       return "You've reached your daily joke limit. Come back tomorrow for more.";
     case 'rate-limit-global':
       return 'punchlines.ai is at capacity right now. Please try again shortly.';
+    case 'rate-limit-error':
+      return 'There was a problem with our rate limiting service. Please try again shortly.';
     case 'unknown':
     default:
       return 'There was a problem generating your punchlines. Please try again shortly.';

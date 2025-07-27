@@ -14,6 +14,7 @@ type ErrorResponse = {
     | 'profanity'
     | 'rate-limit-user'
     | 'rate-limit-global'
+    | 'rate-limit-error'
     | 'unknown';
 };
 
