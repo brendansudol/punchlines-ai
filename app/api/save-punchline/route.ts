@@ -12,6 +12,15 @@ export async function POST(req: NextRequest) {
     return errorResponse('Invalid inputs');
   }
 
+  // Validate index is a non-negative integer
+  if (
+    typeof punchlineIndex !== 'number' ||
+    !Number.isInteger(punchlineIndex) ||
+    punchlineIndex < 0
+  ) {
+    return errorResponse('Invalid inputs');
+  }
+
   const supabase = createRouteHandlerClient<Database>({ cookies });
   const { data: userData } = await supabase.auth.getUser();
   const userId = userData.user?.id;
@@ -33,7 +42,7 @@ export async function POST(req: NextRequest) {
 
   const { setup, results } = joke;
   const punchline = Array.isArray(results)
-    ? (results[punchlineIndex] as string)
+    ? (results[punchlineIndex] as string | undefined)
     : undefined;
 
   if (punchline == null) {

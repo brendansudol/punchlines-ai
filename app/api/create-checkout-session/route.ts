@@ -11,6 +11,10 @@ export async function POST(req: Request) {
   if (req.method !== 'POST') return errorResponse('Method not allowed', 405);
 
   try {
+    if (!process.env.STRIPE_PRICE_ID) {
+      console.error('Missing STRIPE_PRICE_ID');
+      return errorResponse('Unknown');
+    }
     const supabase = createRouteHandlerClient<Database>({ cookies });
     const { data: userData } = await supabase.auth.getUser();
     const { id: uuid, email } = userData.user ?? {};

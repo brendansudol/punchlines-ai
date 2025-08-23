@@ -13,10 +13,13 @@ export function getLookupKey(identifier: string) {
 }
 
 export function getIp(req: NextRequest): string {
-  return (
-    req.ip ??
-    req.headers.get('x-real-ip') ??
-    req.headers.get('x-forwarded-for') ??
-    '__FALLBACK_IP__'
-  );
+  // Try Next.js provided IP first
+  const directIp = req.ip;
+
+  // Handle common proxy headers. `x-forwarded-for` can be a comma-separated list.
+  const xff = req.headers.get('x-forwarded-for') ?? undefined;
+  const forwardedIp = xff?.split(',')[0]?.trim();
+  const realIp = req.headers.get('x-real-ip') ?? undefined;
+
+  return directIp || forwardedIp || realIp || '__FALLBACK_IP__';
 }

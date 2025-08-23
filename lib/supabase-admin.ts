@@ -11,14 +11,14 @@ type Price = Database['public']['Tables']['prices']['Row'];
 // Note: supabaseAdmin uses the SERVICE_ROLE_KEY which you must only use in a secure server-side context
 // as it has admin privileges and overwrites RLS policies!
 const supabaseAdmin = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  // Prefer server-side URL if available; fall back to public URL for dev parity
+  process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '',
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 );
 
 const toDateTime = (secs: number) => {
-  var t = new Date('1970-01-01T00:30:00Z'); // Unix epoch start.
-  t.setSeconds(secs);
-  return t;
+  // Stripe provides seconds since Unix epoch
+  return new Date(secs * 1000);
 };
 
 async function addPunchlinesToDb({
