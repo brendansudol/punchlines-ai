@@ -27,7 +27,14 @@ export function MagicLinkForm() {
     event.preventDefault();
     setStatus('LOADING');
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          // Ensure the email link redirects to our server-side callback
+          // which exchanges the code for a session and sets cookies.
+          emailRedirectTo: `${location.origin}/auth/callback`
+        }
+      });
       setStatus(error != null ? 'ERROR' : 'SUCCESS');
     } catch (error) {
       console.error(error);
