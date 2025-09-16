@@ -9,3 +9,11 @@ export async function middleware(req: NextRequest) {
   await supabase.auth.getSession();
   return res;
 }
+
+// Run on all routes to keep Supabase auth cookies in sync,
+// excluding Next.js internals and the favicon for performance.
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico).*)"
+  ]
+};

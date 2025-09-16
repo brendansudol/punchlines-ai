@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getURL } from '@/lib/utils';
 
 type Status = 'NOT_STARTED' | 'LOADING' | 'ERROR' | 'SUCCESS';
 
@@ -27,7 +28,14 @@ export function MagicLinkForm() {
     event.preventDefault();
     setStatus('LOADING');
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          // Ensure the email link redirects to our server-side callback
+          // which exchanges the code for a session and sets cookies.
+          emailRedirectTo: getURL() + 'auth/callback'
+        }
+      });
       setStatus(error != null ? 'ERROR' : 'SUCCESS');
     } catch (error) {
       console.error(error);
