@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { getURL } from '@/lib/utils';
 
 type Status = 'NOT_STARTED' | 'LOADING' | 'ERROR' | 'SUCCESS';
 
@@ -32,7 +33,7 @@ export function MagicLinkForm() {
         options: {
           // Ensure the email link redirects to our server-side callback
           // which exchanges the code for a session and sets cookies.
-          emailRedirectTo: `${location.origin}/auth/callback`
+          emailRedirectTo: getURL() + 'auth/callback'
         }
       });
       setStatus(error != null ? 'ERROR' : 'SUCCESS');
