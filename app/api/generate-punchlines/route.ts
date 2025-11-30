@@ -24,6 +24,12 @@ const openai = new OpenAI({
 export async function POST(req: NextRequest) {
   if (req.method !== 'POST') return errorResponse('unknown', 405);
 
+  // Basic configuration validation to provide clearer errors
+  if (!process.env.OPENAI_API_KEY || !process.env.OPENAI_MODEL_ID) {
+    console.error('Missing OpenAI configuration');
+    return errorResponse('unknown');
+  }
+
   const { prompt } = await req.json();
   await sleep(500); // prevent loading ui flash, slow down requests
 
@@ -62,7 +68,7 @@ export async function POST(req: NextRequest) {
   // Fetch and parse joke suggestions
   try {
     const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL_ID ?? '',
+      model: process.env.OPENAI_MODEL_ID,
       max_tokens: 100,
       n: 3,
       temperature: 0.7,

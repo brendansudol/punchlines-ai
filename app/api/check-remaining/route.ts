@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     const userId = data.user?.id;
     const lookupKey = getLookupKey(userId || getIp(req));
     const used = await redis.get<number>(lookupKey);
-    const remaining = RATE_LIMIT_TOKENS - (used ?? 0);
+    const remainingRaw = RATE_LIMIT_TOKENS - (used ?? 0);
+    const remaining = Math.max(0, Math.min(RATE_LIMIT_TOKENS, remainingRaw));
     return NextResponse.json({ status: 'success', remaining });
   } catch (error) {
     console.error(error);

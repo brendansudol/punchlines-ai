@@ -12,7 +12,19 @@ export async function fetchPost(url: string, data?: { [key: string]: any }) {
     body: JSON.stringify(data)
   });
 
-  return response.json();
+  const contentType = response.headers.get('Content-Type') || '';
+  const isJson = contentType.includes('application/json');
+  const payload = isJson ? await response.json() : await response.text();
+
+  if (!response.ok) {
+    const message =
+      typeof payload === 'object' && payload && 'reason' in payload
+        ? `Request failed: ${(payload as any).reason}`
+        : `Request failed with status ${response.status}`;
+    throw new Error(message);
+  }
+
+  return payload;
 }
 
 export function getURL() {
