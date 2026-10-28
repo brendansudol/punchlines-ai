@@ -39,3 +39,4 @@ yarn-error.log*
 
 # random
 /TODO.md
+*.tsbuildinfo

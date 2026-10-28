@@ -1,0 +1,39 @@
+{
+  "baseURL": "https://punchlines-i5dy698dq-zigzagzig.vercel.app",
+  "timestamp": "2026-10-28T16:07:24.851Z",
+  "checks": [
+    {
+      "name": "Home renders with temporary authenticated account"
+    },
+    {
+      "name": "Real generation → three rendered punchlines → database persistence",
+      "generatedId": "bd28c21e-901c-4bcd-8e8b-23193d5813c3",
+      "results": [
+        "It says I lack initiative, but it’s the one that keeps popping up early.",
+        "I gave it four stars. It burned my bagel until I changed it to five.",
+        "The meeting went well, but breakfast was placed on a 30-day improvement plan."
+      ],
+      "remaining": 7
+    },
+    {
+      "name": "Loading disables input and duplicate submission"
+    },
+    {
+      "name": "Favorite saved, listed on /saved, and displayed on its share page",
+      "savedId": "099cb7eb-843a-48fd-bae3-adb8e6d11ebd"
+    },
+    {
+      "name": "Validation error is visible and input recovers"
+    },
+    {
+      "name": "Eighth free request succeeds; next request returns 429 and a visible limit message"
+    },
+    {
+      "name": "Controlled 503 shows recoverable error state"
+    }
+  ],
+  "pageErrors": [],
+  "status": "passed",
+  "cleanup": "temporary account, generated/saved records, profile and rate counters removed",
+  "cleanupNote": "The existing public.users foreign key required explicit deletion of the test profile before deleting the auth account. Cleanup was completed separately."
+}

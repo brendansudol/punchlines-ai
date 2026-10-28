@@ -1,0 +1,151 @@
+{
+  "reviewer": "Codex, subjective and not blind; Bren has not rated these samples",
+  "selection": "gpt-6.1-terra with 80 examples",
+  "reason": "Close provisional humor comparison; Terra is faster and less expensive. No claim of statistically significant quality superiority.",
+  "setPreferenceCounts": {
+    "sol": 14,
+    "terra": 14
+  },
+  "items": [
+    {
+      "setupId": 1,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol has the stronger door-closing reversal; Terra mostly adapts familiar motivational sayings."
+    },
+    {
+      "setupId": 2,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra offers the clearer management-ignoring-feedback line and imaginary raise visual."
+    },
+    {
+      "setupId": 3,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra has a concise couch-as-participating-location image; both sets work."
+    },
+    {
+      "setupId": 4,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra is more coherent overall; Sol loading-screen seating is strained."
+    },
+    {
+      "setupId": 5,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra feels more natural; Sol thermostat-age explanation is a stretch."
+    },
+    {
+      "setupId": 6,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol turns silent networking into being ignored by CEOs; Terra espresso-machine founder is fun but familiar."
+    },
+    {
+      "setupId": 7,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol knocking before opening a chat is the cleanest reversal."
+    },
+    {
+      "setupId": 8,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra working-from-home vacuum is concise; Sol furniture-payment line is weakly connected."
+    },
+    {
+      "setupId": 9,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol missing the only meaningful KPI is a strong workplace/dating crossover."
+    },
+    {
+      "setupId": 10,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol parked-car collision and exit-gate detail add specificity."
+    },
+    {
+      "setupId": 11,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra carrying the conversation is compact and relevant; both rely on familiar relationship humor."
+    },
+    {
+      "setupId": 12,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol scissors-to-open-a-banana is a strong packaging reversal; its third option is weaker."
+    },
+    {
+      "setupId": 13,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra gives a clearer dog-breaking-news premise; Sol post/column wordplay is overworked."
+    },
+    {
+      "setupId": 14,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra Exhibit A lands cleanly, though the first two options use much the same meeting loop."
+    },
+    {
+      "setupId": 15,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol premium silence from the front desk extends the hotel premise well; Terra shower-camera line is harsher."
+    },
+    {
+      "setupId": 16,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra squirrels-saving-on-groceries is strongest; Sol dollar-sign/eighty phrasing is awkward and mentions typing."
+    },
+    {
+      "setupId": 17,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol punching a loyalty-card hole as dental work is the clearest turn; both lean on the cost of dentistry."
+    },
+    {
+      "setupId": 18,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra printer/library connection is a fresh angle; both use a similar student-loan idea."
+    },
+    {
+      "setupId": 19,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol towels-and-conditions pun and update-removes-washing escalation are specific."
+    },
+    {
+      "setupId": 20,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra smaller lock for the kids menu is a strong concrete image; Sol hidden key inside customer is oddly dark."
+    },
+    {
+      "setupId": 21,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol ghost preserving housing and invisibility to recruiters connect retirement to the premise."
+    },
+    {
+      "setupId": 22,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra letting-go-of-belongings is the best concise line, but the three options share a lost-luggage theme."
+    },
+    {
+      "setupId": 23,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra imaginary character and chatbots-with-cheese-plate give distinct comic pictures."
+    },
+    {
+      "setupId": 24,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol password rules for Let there be light is a strong literal turn."
+    },
+    {
+      "setupId": 25,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol parents utility bill is the strongest founder-origin reversal; carbonation line is strained."
+    },
+    {
+      "setupId": 26,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol skipping the sponsored part of a race is a fresh video/running connection."
+    },
+    {
+      "setupId": 27,
+      "preferredSet": "gpt-6.1-sol",
+      "note": "Sol raccoon thirst traps is specific and unexpected; Terra uses common social-media puns."
+    },
+    {
+      "setupId": 28,
+      "preferredSet": "gpt-6.1-terra",
+      "note": "Terra cancels spontaneity because something unexpected happened: the cleanest reversal."
+    }
+  ]
+}

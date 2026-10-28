@@ -1,0 +1,39 @@
+{
+  "baseURL": "http://localhost:3005",
+  "timestamp": "2026-10-28T16:06:47.571Z",
+  "checks": [
+    {
+      "name": "Home renders with temporary authenticated account"
+    },
+    {
+      "name": "Real generation → three rendered punchlines → database persistence",
+      "generatedId": "0d52130c-f343-4fa3-b9d2-55ebddcc2ceb",
+      "results": [
+        "It rated me “needs improvement” for putting a fork in it.",
+        "I gave it five stars, and it still put me on a bagel improvement plan.",
+        "Apparently, “burns everything it touches” is not constructive feedback."
+      ],
+      "remaining": 7
+    },
+    {
+      "name": "Loading disables input and duplicate submission"
+    },
+    {
+      "name": "Favorite saved, listed on /saved, and displayed on its share page",
+      "savedId": "00e597ad-916b-4147-8caf-b8d0ea2dc800"
+    },
+    {
+      "name": "Validation error is visible and input recovers"
+    },
+    {
+      "name": "Eighth free request succeeds; next request returns 429 and a visible limit message"
+    },
+    {
+      "name": "Controlled 503 shows recoverable error state"
+    }
+  ],
+  "pageErrors": [],
+  "status": "passed",
+  "cleanup": "temporary account, generated/saved records, profile and rate counters removed",
+  "cleanupNote": "The existing public.users foreign key required explicit deletion of the test profile before deleting the auth account. Cleanup was completed separately."
+}

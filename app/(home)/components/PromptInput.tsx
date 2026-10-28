@@ -5,16 +5,18 @@ import TextareaAutosize from 'react-textarea-autosize';
 export function PromptInput({
   value,
   onChange,
-  onSubmit
+  onSubmit,
+  isLoading
 }: {
   value: string;
   onChange: (value: string) => void;
   onSubmit: () => void;
+  isLoading: boolean;
 }) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      onSubmit();
+      if (!isLoading && value.trim()) onSubmit();
     } else if (e.key === 'Escape') {
       e.preventDefault();
       onChange('');
@@ -27,6 +29,7 @@ export function PromptInput({
         rows={1}
         maxRows={5}
         placeholder="Add opening line..."
+        aria-label="Joke setup"
         className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
         style={{ overflowY: 'hidden' }}
         value={value}
@@ -35,7 +38,8 @@ export function PromptInput({
       />
       <button
         className="absolute p-1 rounded-md text-slate-500 bottom-1.5 right-1 md:bottom-2.5 md:right-2 hover:bg-slate-100 disabled:hover:bg-transparent"
-        disabled={value.length === 0}
+        disabled={!value.trim() || isLoading}
+        aria-label={isLoading ? 'Generating punchlines' : 'Generate punchlines'}
         onClick={onSubmit}
       >
         <svg

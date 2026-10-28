@@ -26,9 +26,8 @@ export function Footer() {
           <div>
             <p className="mb-4">
               <strong>punchlines.ai</strong> is an AI joke generation tool built
-              on top of a large language model (LLM). It was fine-tuned on
-              thousands of late night comedy monologue jokes. And boy are its
-              arms tired!
+              with a language model guided by selected examples of late-night
+              comedy monologue jokes. And boy are its arms tired!
             </p>
             <p className="mb-4">
               You can generate a limited number of jokes every day for free or

@@ -1,0 +1,407 @@
+{
+  "version": "interim-2026-10-28-v1",
+  "source": "joke-gpt/data/training-latest.jsonl",
+  "sourceSha256": "5943f84f9fcbc477fe5bf2ee1c9ae9ab1688e31a9711a1a5737f783ffe3ee7d4",
+  "examples": [
+    {
+      "sourceRow": 11,
+      "setup": "Just a reminder to check on your elderly relatives during these hot summer months.",
+      "punchline": "Hi Dad. There, my job’s done."
+    },
+    {
+      "sourceRow": 1510,
+      "setup": "A Baltimore Raven published a complex study in a math journal.",
+      "punchline": "The NFL suspended him for unsportsmanlike conduct."
+    },
+    {
+      "sourceRow": 649,
+      "setup": "I lost $500 betting yesterday.",
+      "punchline": "Not on the Super Bowl, on “Downton Abbey.”"
+    },
+    {
+      "sourceRow": 2998,
+      "setup": "It's being reported that Google and Yahoo are in serious talks to buy Hulu.",
+      "punchline": "I don't have a joke here, I just wanted to confuse my mother."
+    },
+    {
+      "sourceRow": 3206,
+      "setup": "Last night I was visited by a ghost who claimed he had \"unfinished business.\"",
+      "punchline": "Turns out he just needed something notarized."
+    },
+    {
+      "sourceRow": 4453,
+      "setup": "ABC announced that the \"The Bachelor\" and \"The Bachelorette\" will now feature a more diverse cast.",
+      "punchline": "They’re going to add a contestant who has read a book."
+    },
+    {
+      "sourceRow": 3944,
+      "setup": "A college student in Georgia was worried that his parents would be mad at him for flunking English, so he faked his own kidnapping.",
+      "punchline": "However, the parents figured it out when the ransom note said, \"We Has Your Son.\""
+    },
+    {
+      "sourceRow": 1313,
+      "setup": "A new report says that 80% of sunscreens either don't work or have questionable ingredients.",
+      "punchline": "In a related story, I don’t have long to live."
+    },
+    {
+      "sourceRow": 3657,
+      "setup": "Yesterday, a woman gave birth after running the Chicago Marathon.",
+      "punchline": "Immediately after the race, the baby was disqualified for cheating."
+    },
+    {
+      "sourceRow": 4495,
+      "setup": "While working on the LA subway, construction workers have discovered fossils from the ice age.",
+      "punchline": "The fossils belong to the last creature to ever use the Los Angeles subway."
+    },
+    {
+      "sourceRow": 4119,
+      "setup": "An Ohio school is requiring students who want to be on the yearbook committee be tested for drugs.",
+      "punchline": "The yearbook committee is protesting, saying, \"If we were cool enough to do drugs, we wouldn't be on the yearbook committee.\""
+    },
+    {
+      "sourceRow": 811,
+      "setup": "This weekend was the first YouTube Music Awards show and Eminem won Artist of the Year.",
+      "punchline": "Second runner up was a cat walking across a piano."
+    },
+    {
+      "sourceRow": 4925,
+      "setup": "Sunday was daylight savings time, when we lose an hour for no apparent reason.",
+      "punchline": "And, by the way, \"losing an hour for no apparent reason\" is also the motto for this show."
+    },
+    {
+      "sourceRow": 12,
+      "setup": "Bono has apologized for putting the U2 album in peoples' iTunes without their permission.",
+      "punchline": "For the full version of his apology, check your voicemail, it’s there."
+    },
+    {
+      "sourceRow": 1610,
+      "setup": "This holiday weekend, Chicago's Midway airport is featuring live blues and jazz performances for passengers waiting at baggage claim.",
+      "punchline": "Not to be outdone, New York's JFK airport will feature baggage belonging to the passengers in Chicago."
+    },
+    {
+      "sourceRow": 4382,
+      "setup": "There’s a cold snap, and even in Hollywood, temperatures are in the 50s.",
+      "punchline": "Of course, since it’s Hollywood, the weather is telling everyone it’s only in its mid-30s."
+    },
+    {
+      "sourceRow": 4365,
+      "setup": "It’s rumored that the new PlayStation controller will measure the degree to which you’re sweating.",
+      "punchline": "In response, gamers asked, “What’s sweating?”"
+    },
+    {
+      "sourceRow": 907,
+      "setup": "A company has come out with a robot that makes salad.",
+      "punchline": "So finally - a robot that’s not going to take away any American jobs!"
+    },
+    {
+      "sourceRow": 1194,
+      "setup": "Long John Silvers has just hired a new executive to completely revamp their menu.",
+      "punchline": "For starters, he said they're going to start experimenting with something called \"fish.\""
+    },
+    {
+      "sourceRow": 211,
+      "setup": "I like my coffee the way I like my jokes about the way I like my coffee.",
+      "punchline": "I don’t drink coffee."
+    },
+    {
+      "sourceRow": 3381,
+      "setup": "In Florida, an Anheuser-Busch truck collided with a Frito-Lay truck, spilling beer and chips all over the highway.",
+      "punchline": "Of course in Florida they call that an \"Easter miracle.\""
+    },
+    {
+      "sourceRow": 4097,
+      "setup": "Starbucks just announced it will be raising its coffee prices.",
+      "punchline": "When asked why, Starbucks said, \"Because it’s been a week since we had any bad publicity. We had to do something.\""
+    },
+    {
+      "sourceRow": 4101,
+      "setup": "An 18-year-old has started a GoFundMe page so he can achieve his dream of taking a bath in KFC gravy.",
+      "punchline": "So far, most of his donations have been provided by the Make a Sad Wish Foundation."
+    },
+    {
+      "sourceRow": 2086,
+      "setup": "\"Game of Thrones\" creator George R.R. Martin has put an end to the rumor that there will be a \"Game of Thrones\" movie.",
+      "punchline": "Martin said, \"There’s no way I could keep a character alive for two hours straight.\""
+    },
+    {
+      "sourceRow": 3354,
+      "setup": "A new study finds that men with thick biceps are more likely to live longer.",
+      "punchline": "The study also found that I died 10 years ago."
+    },
+    {
+      "sourceRow": 4921,
+      "setup": "Over the weekend here in California, a riot broke out at a national surfing competition.",
+      "punchline": "Nobody was killed, but one man is listed in stable but “gnarly” condition."
+    },
+    {
+      "sourceRow": 288,
+      "setup": "In six states, bagged salads sold at Wal-Mart have been recalled.",
+      "punchline": "The salad recall affects approximately 100 Wal-Mart stores and zero Wal-Mart customers."
+    },
+    {
+      "sourceRow": 1519,
+      "setup": "To celebrate Leap Day, Arby’s is offering a special vegetarian menu.",
+      "punchline": "Arby’s said, \"It’s part of our commitment to offer healthy food, once every four years.\""
+    },
+    {
+      "sourceRow": 2842,
+      "setup": "Over the last few months, Home Depot is reporting record profits.",
+      "punchline": "Home Depot said they'd like to share the profits with their employees but even they can't find them."
+    },
+    {
+      "sourceRow": 497,
+      "setup": "Dr. Dre may become the world’s first hip-hop billionaire.",
+      "punchline": "So maybe my mom was right--I should’ve become a doctor."
+    },
+    {
+      "sourceRow": 4107,
+      "setup": "A company has created a bathroom scale that allows you to tweet your weight to your friends.",
+      "punchline": "The company immediately went out of business."
+    },
+    {
+      "sourceRow": 3126,
+      "setup": "Uber has announced a new service where you carpool with strangers.",
+      "punchline": "It’s a cutting edge new technology called, \"taking the bus.\""
+    },
+    {
+      "sourceRow": 1287,
+      "setup": "Both the US and German teams have very good goalies, so many are predicting a very low scoring game.",
+      "punchline": "So don’t expect to see one of those 1-0 blowouts."
+    },
+    {
+      "sourceRow": 2324,
+      "setup": "\"Wind Beneath My Wings\" is a great song, but what about the wind ABOVE her wings?",
+      "punchline": "It’s technically just as important for lift."
+    },
+    {
+      "sourceRow": 3907,
+      "setup": "In LA this morning, a woman gave birth to a healthy baby on the shoulder of the 605 Freeway.",
+      "punchline": "It's amazing what people will do out here just to use the carpool lane."
+    },
+    {
+      "sourceRow": 926,
+      "setup": "Taco Bell is following up its Doritos tacos with new taco shells made of Fritos.",
+      "punchline": "It’s all part of Taco Bell’s new slogan, \"Working Our Way Down the Stuff You Find Next To a 7-Eleven Cash Register.\""
+    },
+    {
+      "sourceRow": 942,
+      "setup": "In Germany, researchers were recently able to stop light from traveling for an extended period of time.",
+      "punchline": "Here’s how they did it-- they placed the light on United Airlines."
+    },
+    {
+      "sourceRow": 2596,
+      "setup": "For its 25th anniversary, the music festival Lollapalooza is adding a fourth day.",
+      "punchline": "That extra day will be devoted to showering."
+    },
+    {
+      "sourceRow": 2312,
+      "setup": "The pastor who incorrectly predicted the Rapture this Saturday was quoted as saying, \"It's been a really tough weekend.\"",
+      "punchline": "To make things worse, his friends keep calling to say, \"Hey, come on, it's not the end of the world.\""
+    },
+    {
+      "sourceRow": 3366,
+      "setup": "This Valentine's Day, there's a new app called the \"Love Calculator\" that enables users to calculate their chances at love.",
+      "punchline": "Of course sometimes the app goes by its original name, a \"breathalyzer.\""
+    },
+    {
+      "sourceRow": 2065,
+      "setup": "This weekend \"Spider-Man 2\" earned $92 million at the box office.",
+      "punchline": "That makes it the fourth most successful \"Spider-Man 2.\""
+    },
+    {
+      "sourceRow": 2532,
+      "setup": "Apple recently said that every idea for an Apple product begins with \"delight, surprise, love, and connection.\"",
+      "punchline": "Apple said, \"Then we add a $600 price tag on it and BOOM.\""
+    },
+    {
+      "sourceRow": 118,
+      "setup": "A Southwest Airlines flight landed at the wrong airport in Missouri.",
+      "punchline": "A spokesperson for Southwest said, \"Close enough.\""
+    },
+    {
+      "sourceRow": 4999,
+      "setup": "Amazon Prime has made it possible to have beer and wine delivered to your home by Alexa.",
+      "punchline": "All you have to do is say the phrase, \"Alexa, Daddy’s sad.\""
+    },
+    {
+      "sourceRow": 3211,
+      "setup": "The very first Academy Awards ceremony lasted 15 minutes.",
+      "punchline": "And thanks to the fast forward button on my DVR, so will this year’s."
+    },
+    {
+      "sourceRow": 1412,
+      "setup": "A new study says we should change how we feed cows so they don’t produce so much of the greenhouse gas: methane.",
+      "punchline": "The first step they recommend -- eliminate \"Taco Night.\""
+    },
+    {
+      "sourceRow": 988,
+      "setup": "During the Super Bowl, Quicken Loans debuted a new app that lets people get a mortgage instantly on their phones by just tapping the screen.",
+      "punchline": "The app is called, \"What could possibly go wrong?\""
+    },
+    {
+      "sourceRow": 1679,
+      "setup": "A Texas man has successfully fired the first-ever gun created by a 3-D printer.",
+      "punchline": "Which raises the question – Don't you think a gun created by a printer would jam?"
+    },
+    {
+      "sourceRow": 4521,
+      "setup": "Law & Order has released a 104 disc box set of every episode of the show.",
+      "punchline": "Now fans of the Law & Order franchise have 2 options: either buy this exclusive 104 disc DVD collection or just turn on your television to any channel and wait 5 minutes."
+    },
+    {
+      "sourceRow": 3740,
+      "setup": "Facebook has announced a way for users to \"unsend\" messages.",
+      "punchline": "All you do is go to the message center and click the button marked \"I Was Drunk.\""
+    },
+    {
+      "sourceRow": 2161,
+      "setup": "New research shows that giraffes hum, but only at night.",
+      "punchline": "Even more surprising: They all hum that Chili’s \"Babyback Ribs\" song."
+    },
+    {
+      "sourceRow": 3990,
+      "setup": "Pluto is larger than previously thought, and on its surface there is a shape that looks like a heart.",
+      "punchline": "So now, scientists are deciding whether to classify Pluto as a planet or an emoji."
+    },
+    {
+      "sourceRow": 139,
+      "setup": "Baskin Robbins introduced a new ice cream flavor called \"Ice Cream Nachos.\"",
+      "punchline": "They came up with the idea yesterday at 4:20."
+    },
+    {
+      "sourceRow": 2893,
+      "setup": "Just read a study claiming dogs can feel love, which is yet another way dogs are superior to cats.",
+      "punchline": "And comedians."
+    },
+    {
+      "sourceRow": 265,
+      "setup": "7-Eleven announced it’s now offering \"breakfast pizza.\"",
+      "punchline": "It’s all in keeping with 7-Eleven’s motto: \"If You’re Here, You’re Probably Hungover.\""
+    },
+    {
+      "sourceRow": 4300,
+      "setup": "An American judo fighter was expelled from the Olympics after testing positive for marijuana.",
+      "punchline": "Officials became suspicious when he kept stopping the match and saying, \"What are we fighting for, man?\""
+    },
+    {
+      "sourceRow": 664,
+      "setup": "A New York City pedicab driver is being investigated for charging Japenese tourists $720 for a 20 minute bike ride.",
+      "punchline": "He’s been charged with impersonating a regular cab driver."
+    },
+    {
+      "sourceRow": 2283,
+      "setup": "I'm going to miss the World Cup when it's over.",
+      "punchline": "It'll be hard to go into a bar & not hear people yelling about something I don't understand."
+    },
+    {
+      "sourceRow": 4648,
+      "setup": "Hey can someone send me an Oculus Rift VR headset?",
+      "punchline": "I finally want to try parasailing."
+    },
+    {
+      "sourceRow": 2937,
+      "setup": "The Grateful Dead are putting out an 80-disc live box set.",
+      "punchline": "No word yet on which Grateful Dead song it will be."
+    },
+    {
+      "sourceRow": 2034,
+      "setup": "I can't wait to try the new gigantic Starbucks size, \"Trenta\".",
+      "punchline": "Or as it's called in The Midwest, \"A Medium\"."
+    },
+    {
+      "sourceRow": 2997,
+      "setup": "A Spanish tennis player has been suspended after testing positive for meth.",
+      "punchline": "Tennis officials grew suspicious when he started returning his own serves."
+    },
+    {
+      "sourceRow": 3475,
+      "setup": "The government has unveiled a new website that predicts your financial worth after graduating college.",
+      "punchline": "It doesn’t give a number, it just tells you which Starbucks you’ll be working at and for how long."
+    },
+    {
+      "sourceRow": 4111,
+      "setup": "A man from Houston is attempting to visit all the Starbucks locations in the world.",
+      "punchline": "It's been four years since he started and he still hasn't left Houston."
+    },
+    {
+      "sourceRow": 4114,
+      "setup": "According to new research, you may be at risk of bacterial infections from clothing you buy at the mall.",
+      "punchline": "Experts say the store you most want to avoid is \"Victoria's Really Disgusting Secret.\""
+    },
+    {
+      "sourceRow": 2545,
+      "setup": "The oldest person on Facebook is a 101-year-old woman.",
+      "punchline": "She said, \"I want to waste what little time I have left.\""
+    },
+    {
+      "sourceRow": 1216,
+      "setup": "A new study indicates 93% of women feel their armpits are unattractive.",
+      "punchline": "The study was conducted by the Association of Researchers Who Have Run Out of Questions to Ask Women."
+    },
+    {
+      "sourceRow": 3997,
+      "setup": "The International Olympic Committee has officially recognized Ultimate Frisbee as an Olympic sport.",
+      "punchline": "The news was greeted with excitement by thousands of guys named \"Chad.\""
+    },
+    {
+      "sourceRow": 4387,
+      "setup": "The Garmin company is now offering a new GPS device that has the voice of Yoda.",
+      "punchline": "Maybe it's just me, but if I'm getting turn-by-turn directions, do I really want someone who speaks backwards?"
+    },
+    {
+      "sourceRow": 862,
+      "setup": "The government shutdown will slash the budget for food inspection.",
+      "punchline": "That’s bad news for health advocates, but great news for the new Japanese restaurant, \"Leap-Of-Faith Sushi.\""
+    },
+    {
+      "sourceRow": 3375,
+      "setup": "A new survey has found that for the third year in a row, the most annoying word in the English language is \"Whatever.\"",
+      "punchline": "The news was taken especially hard by the top-secret government lab that developed \"Brosephus.\""
+    },
+    {
+      "sourceRow": 2587,
+      "setup": "Earlier this week, investor Warren Buffett lost $2 billion.",
+      "punchline": "Luckily, Buffett found it this morning under a pile of $8 billion."
+    },
+    {
+      "sourceRow": 300,
+      "setup": "McDonald's has announced its Happy Meals will include an apple slice and half the amount of French Fries.",
+      "punchline": "In a related story, the Happy Meal will now just be called, \"The Meal.\""
+    },
+    {
+      "sourceRow": 761,
+      "setup": "Campbells is recalling over 300,000 cans of Spaghettios.",
+      "punchline": "Turns out, they contain a very dangerous substance called “Spaghettios.”"
+    },
+    {
+      "sourceRow": 2402,
+      "setup": "It’s raining so hard now, we’re actually having mudslides here in LA.",
+      "punchline": "This morning I was driving to work and I was passed by a house."
+    },
+    {
+      "sourceRow": 2953,
+      "setup": "A couple in Arkansas who love the Olive Garden have named their infant daughter \"Olivia Garton.\"",
+      "punchline": "Olivia went home today, where she joined her big brother, Hooters."
+    },
+    {
+      "sourceRow": 2677,
+      "setup": "A new study found that government employees are the happiest workers.",
+      "punchline": "The study was conducted NOT at the DMV."
+    },
+    {
+      "sourceRow": 1515,
+      "setup": "Dartmouth College has named their medical school after Dr. Seuss.",
+      "punchline": "Because nothing is better than hearing your doctor say, \"You don't have cancer on your nose, you don't have cancer on your toes.\""
+    },
+    {
+      "sourceRow": 415,
+      "setup": "Lufthansa Airlines will soon allow pet falcons aboard their flights.",
+      "punchline": "This is bad news for Lufthansa passengers with seeing eye mice."
+    },
+    {
+      "sourceRow": 1805,
+      "setup": "Another day of heavy rain here in Los Angeles.",
+      "punchline": "Which is great if you’re worried about the drought, or if you just like the smell of wet man bun."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "baseURL": "http://localhost:3006",
+  "timestamp": "2026-10-28T17:28:45.336Z",
+  "checks": [
+    {
+      "name": "Home renders with temporary authenticated account"
+    },
+    {
+      "name": "Real generation → three rendered punchlines → database persistence",
+      "generatedId": "8c632910-8506-4c16-96f9-be4d88bad6b4",
+      "results": [
+        "It gave me a warning for putting a fork in the workplace.",
+        "Apparently, my attendance is excellent, but my bagels lack initiative.",
+        "I asked for a raise. It offered me two settings: warm and unemployed."
+      ],
+      "remaining": 7
+    },
+    {
+      "name": "Input stays editable while loading; duplicate submission is blocked and results retain the submitted setup"
+    },
+    {
+      "name": "Favorite saved, listed on /saved, and displayed on its share page",
+      "savedId": "89c21c81-fa17-4a5a-8891-dc79d583c711"
+    },
+    {
+      "name": "Validation error is visible and input recovers"
+    },
+    {
+      "name": "Eighth free request succeeds; next request returns 429 and a visible limit message"
+    },
+    {
+      "name": "Controlled 500 shows recoverable error state"
+    }
+  ],
+  "pageErrors": [],
+  "testUserId": "79ddfc11-bb08-4cb1-b8a1-b79607b9bfd8",
+  "status": "passed",
+  "cleanup": "temporary account, generated/saved records and rate counters removed"
+}

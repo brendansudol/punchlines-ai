@@ -5,6 +5,11 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { profanity } from '@/lib/profanity';
+import {
+  buildPunchlineRequest,
+  getPunchlineModel,
+  parsePunchlines
+} from '@/lib/punchlines';
 import { getIp, RATE_LIMIT_TOKENS, RATE_LIMIT_WINDOW } from '@/lib/rate-limit';
 import { addPunchlinesToDb } from '@/lib/supabase-admin';
 import { SuggestResponse } from '@/types';
@@ -22,18 +27,26 @@ const openai = new OpenAI({
 });
 
 export async function POST(req: NextRequest) {
-  if (req.method !== 'POST') return errorResponse('unknown', 405);
-
-  const { prompt } = await req.json();
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return errorResponse('prompt-too-short', 400);
+  }
+  const input =
+    body && typeof body === 'object' && 'prompt' in body
+      ? body.prompt
+      : undefined;
+  const prompt = typeof input === 'string' ? input.trim() : '';
   await sleep(500); // prevent loading ui flash, slow down requests
 
   // Validate prompt
   if (prompt == null || typeof prompt !== 'string' || prompt.length < 5) {
-    return errorResponse('prompt-too-short');
+    return errorResponse('prompt-too-short', 400);
   } else if (prompt.length > 150) {
-    return errorResponse('prompt-too-long');
+    return errorResponse('prompt-too-long', 400);
   } else if (profanity.check(prompt)) {
-    return errorResponse('profanity');
+    return errorResponse('profanity', 400);
   }
 
   // Get user details
@@ -53,42 +66,25 @@ export async function POST(req: NextRequest) {
       const result = await ratelimit.limit(rateLimitId);
       remaining = result.remaining;
       if (!result.success) return errorResponse('rate-limit-user', 429);
-    } catch (err) {
-      console.error('Error with rate limiter', err);
-      // todo: early exit?
+    } catch {
+      console.error('Error with rate limiter');
     }
   }
 
   // Fetch and parse joke suggestions
   try {
-    const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_MODEL_ID ?? '',
-      max_tokens: 100,
-      n: 3,
-      temperature: 0.7,
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a creative and hilarious comedy writer that loves to craft jokes'
-        },
-        {
-          role: 'user',
-          content: formatPrompt(prompt)
-        }
-      ]
-    });
-
-    const results = completion.choices
-      .map(({ message }) => message.content?.trim())
-      .filter(isNonNullable);
+    const model = getPunchlineModel(process.env.OPENAI_MODEL_ID);
+    const completion = await openai.chat.completions.create(
+      buildPunchlineRequest(prompt, model)
+    );
+    const results = parsePunchlines(completion, prompt);
 
     // Save results to db
     let id: string | undefined;
     try {
       id = await addPunchlinesToDb({ userId, setup: prompt, results });
-    } catch (err) {
-      console.error('Error saving to db', err);
+    } catch {
+      console.error('Error saving generated punchlines');
     }
 
     return NextResponse.json({
@@ -98,12 +94,16 @@ export async function POST(req: NextRequest) {
       prompt,
       results
     });
-  } catch (error: any) {
-    if (typeof error === 'object' && error?.response?.status === 429) {
+  } catch (error: unknown) {
+    if (error instanceof OpenAI.APIError && error.status === 429) {
       return errorResponse('rate-limit-global', 429);
     }
 
-    console.error('Error getting suggestions', error);
+    console.error('Error getting suggestions', {
+      name: error instanceof Error ? error.name : 'UnknownError',
+      status: error instanceof OpenAI.APIError ? error.status : undefined,
+      requestId: error instanceof OpenAI.APIError ? error.requestID : undefined
+    });
     return errorResponse('unknown');
   }
 }
@@ -129,20 +129,6 @@ async function getUserDetails() {
     userId,
     hasSubscription: subscription != null
   };
-}
-
-function isNonNullable<T>(value: T | undefined | null): value is T {
-  return value != null;
-}
-
-function formatPrompt(prompt: string): string {
-  return maybeAddPeriod(prompt.trim());
-}
-
-function maybeAddPeriod(str: string) {
-  const lastChar = str.slice(-1);
-  const punctuationMarks = ['.', '!', '?', '"', '”', '…'];
-  return punctuationMarks.includes(lastChar) ? str : `${str}.`;
 }
 
 function sleep(ms: number) {
