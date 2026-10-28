@@ -34,7 +34,12 @@ export function ResultsSuccess({
   const [saved, setSaved] = useState<{ [idx: string]: string }>({});
 
   const handleSave = (idx: number) => async () => {
-    if (id == null) return;
+    if (id == null) {
+      toast.error(
+        'These results could not be saved. Please copy the joke or try generating again.'
+      );
+      return;
+    }
 
     if (!isSignedIn) {
       toast.error('Sign in to save jokes');
@@ -118,6 +123,12 @@ export function ResultsSuccess({
   return (
     <div>
       {title}
+      {id == null && (
+        <p className="mb-4 text-sm text-amber-800" role="status">
+          Your punchlines are ready, but we couldn’t save these results. You can
+          still copy them.
+        </p>
+      )}
       <div className="grid gap-4">
         {results.map((punchline, i) => (
           <div
@@ -157,6 +168,7 @@ export function ResultsSuccess({
                   variant="ghost"
                   size="icon"
                   className="h-6 w-6"
+                  aria-label={`Save punchline ${i + 1}`}
                   onClick={handleSave(i)}
                 >
                   <Bookmark className="h-4 w-4" />

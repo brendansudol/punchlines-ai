@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { usePay } from '@/hooks/usePay';
 import {
   asyncLoaded,
@@ -37,6 +37,7 @@ export function MainContent({
   const [remaining, setRemaining] = useState<number | null>();
   const [results, setResults] =
     useState<AsyncValue<SuggestResponse>>(asyncNotStarted());
+  const requestPending = useRef(false);
 
   const router = useRouter();
   const { handlePay } = usePay();
@@ -50,6 +51,8 @@ export function MainContent({
   };
 
   const handleSubmit = async () => {
+    if (requestPending.current || !prompt.trim()) return;
+    requestPending.current = true;
     setResults(asyncLoading());
     setShowTyping(true);
     try {
@@ -61,6 +64,8 @@ export function MainContent({
       if (data.status === 'success') setRemaining(data.remaining);
     } catch (_) {
       setResults(asyncLoaded({ status: 'error', reason: 'unknown' }));
+    } finally {
+      requestPending.current = false;
     }
   };
 
@@ -103,6 +108,7 @@ export function MainContent({
           value={prompt}
           onChange={setPrompt}
           onSubmit={handleSubmit}
+          isLoading={isLoading(results)}
         />
         <RemainingInfo
           remaining={remaining}

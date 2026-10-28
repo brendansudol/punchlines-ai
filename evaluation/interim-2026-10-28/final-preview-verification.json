@@ -1,0 +1,39 @@
+{
+  "baseURL": "https://punchlines-l545xg7h4-zigzagzig.vercel.app",
+  "timestamp": "2026-10-28T16:19:56.299Z",
+  "checks": [
+    {
+      "name": "Home renders with temporary authenticated account"
+    },
+    {
+      "name": "Real generation → three rendered punchlines → database persistence",
+      "generatedId": "799e52e5-1448-4692-8d2a-bdd4ba3ace98",
+      "results": [
+        "It gave me a warning for putting a fork near it.",
+        "I got a raise, but my bagel was put on a performance improvement plan.",
+        "Apparently, showing up every morning isn’t enough when you’re constantly burning out."
+      ],
+      "remaining": 7
+    },
+    {
+      "name": "Loading disables input and duplicate submission"
+    },
+    {
+      "name": "Favorite saved, listed on /saved, and displayed on its share page",
+      "savedId": "9aa93f50-b726-44e5-8f1a-c38c6af6a87f"
+    },
+    {
+      "name": "Validation error is visible and input recovers"
+    },
+    {
+      "name": "Eighth free request succeeds; next request returns 429 and a visible limit message"
+    },
+    {
+      "name": "Controlled 503 shows recoverable error state"
+    }
+  ],
+  "pageErrors": [],
+  "testUserId": "0327f7b8-b6d0-4dee-bd99-e354df01eeab",
+  "status": "passed",
+  "cleanup": "temporary account, generated/saved records and rate counters removed"
+}

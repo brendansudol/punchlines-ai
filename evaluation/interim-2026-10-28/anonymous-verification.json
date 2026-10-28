@@ -1,0 +1,17 @@
+{
+  "baseURL": "https://punchlines-l545xg7h4-zigzagzig.vercel.app",
+  "timestamp": "2026-10-28T16:20:30.792Z",
+  "checks": [
+    "Signed-out generation renders three punchlines and persists an anonymous result",
+    "Saving while signed out displays the sign-in prompt"
+  ],
+  "pageErrors": [],
+  "results": [
+    "Even my luggage thinks I’m carrying too much baggage.",
+    "It’s been sitting by the door for three days with its little handle up.",
+    "I asked if it would pay for the trip. It suggested I pack a lunch."
+  ],
+  "remaining": 7,
+  "status": "passed",
+  "cleanup": "Only the generated anonymous test row was removed; IP counter left intact"
+}
